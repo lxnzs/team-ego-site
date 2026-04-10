@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="format-detection" content="date=no">
-    <meta name="format-detection" content="address=no">
-    <meta name="format-detection" content="email=no">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     
-    <title>Team Ego | Roster</title>
+    <title>Team Ego | Roster & Stats</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -60,6 +57,7 @@
         }
 
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .player-header:hover { background: rgba(255,255,255,0.05); }
         .no-click { cursor: default !important; pointer-events: none; }
 
         .player-info { display: flex; align-items: center; gap: 15px; }
@@ -69,7 +67,19 @@
         }
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
-        .nickname { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; }
+        .nickname { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 18px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 18px; 
+        }
+        
+        .faceit-link { display: flex; align-items: center; transition: 0.2s; }
+        .faceit-link:hover { opacity: 0.8; transform: scale(1.15); }
+        .faceit-ico { width: 26px; height: auto; display: block; }
+
         .role-badge {
             font-family: 'Orbitron', sans-serif; font-size: 10px;
             padding: 5px 12px; border-radius: 20px;
@@ -82,19 +92,17 @@
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
         
-        /* Жесткая блокировка цвета */
         .stat-value { 
             display: block; 
             font-family: 'Orbitron', sans-serif; 
             font-size: 18px; 
             font-weight: 900;
-            color: #fff !important; /* Белый по умолчанию */
+            color: #fff !important;
             text-decoration: none !important;
         }
         
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* Приоритетные цветовые классы */
         .val-bad { color: var(--bad) !important; }
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
@@ -109,6 +117,7 @@
         @media (max-width: 600px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .team-title { font-size: 28px; }
+            .nickname { gap: 14px; }
         }
     </style>
 </head>
@@ -126,7 +135,12 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">-himeraa666</div>
+                <div class="nickname">
+                    -himeraa666
+                    <a href="https://www.faceit.com/ru/players/MrFlayz" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
             </div>
             <div class="role-badge">IGL / AWP</div>
         </div>
@@ -142,7 +156,12 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">angeldust</div>
+                <div class="nickname">
+                    angeldust
+                    <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
             </div>
             <div class="role-badge">RIFLE</div>
         </div>
@@ -158,7 +177,12 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">lanes</div>
+                <div class="nickname">
+                    lanes
+                    <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
             </div>
             <div class="role-badge">SUPPORT</div>
         </div>
@@ -174,7 +198,12 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">aimlord</div>
+                <div class="nickname">
+                    aimlord
+                    <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
             </div>
             <div class="role-badge">LURKER</div>
         </div>
@@ -208,23 +237,18 @@
         stats.forEach(el => {
             const type = el.getAttribute('data-type');
             if (!type) return;
-
             const val = parseFloat(el.textContent.replace('%', ''));
-            
-            // Удаляем старые классы
             el.classList.remove('val-bad', 'val-okay', 'val-good');
 
             if (type === 'kdr') {
                 if (val < 1.0) el.classList.add('val-bad');
                 else if (val <= 1.2) el.classList.add('val-okay');
                 else el.classList.add('val-good');
-            } 
-            else if (type === 'adr') {
+            } else if (type === 'adr') {
                 if (val < 75) el.classList.add('val-bad');
                 else if (val <= 85) el.classList.add('val-okay');
                 else el.classList.add('val-good');
-            } 
-            else if (type === 'hs' || type === 'winrate') {
+            } else if (type === 'hs' || type === 'winrate') {
                 if (val < 45) el.classList.add('val-bad');
                 else if (val <= 55) el.classList.add('val-okay');
                 else el.classList.add('val-good');
@@ -232,13 +256,11 @@
         });
     }
 
-    // Запуск при загрузке
     window.addEventListener('DOMContentLoaded', runColorizer);
     window.addEventListener('load', runColorizer);
 
-    // MutationObserver — следит, чтобы браузер не вернул цифрам зеленый цвет
     const observer = new MutationObserver(() => {
-        observer.disconnect(); // Чтобы не уйти в бесконечный цикл
+        observer.disconnect();
         runColorizer();
         startObserving();
     });
@@ -246,7 +268,6 @@
     function startObserving() {
         observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     }
-
     startObserving();
 </script>
 </body>
