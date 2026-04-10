@@ -31,7 +31,6 @@
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        /* Шапка сайта */
         .header { text-align: center; margin-bottom: 60px; }
         .logo-img { width: 120px; filter: drop-shadow(0 0 10px var(--primary)); margin-bottom: 10px; }
         .team-title {
@@ -48,7 +47,6 @@
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
-        /* Карточка игрока */
         .player-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -69,15 +67,23 @@
         }
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
-        /* Ник и Лого (ПК по умолчанию) */
         .nickname { 
             font-family: 'Orbitron', sans-serif; 
             font-size: 18px; 
             font-weight: 700; 
             display: flex; 
             align-items: center; 
-            gap: 18px; 
+            gap: 15px; 
             white-space: nowrap;
+        }
+
+        /* Стиль для новых флагов-картинок */
+        .flag-img {
+            width: 24px; /* Ширина флага */
+            height: auto;
+            border-radius: 2px; /* Легкое закругление */
+            box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Тень для объема */
+            flex-shrink: 0;
         }
         
         .faceit-link { display: flex; align-items: center; transition: 0.2s; flex-shrink: 0; }
@@ -91,7 +97,6 @@
             flex-shrink: 0;
         }
 
-        /* Панель статистики */
         .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
 
@@ -108,35 +113,28 @@
         
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* Цвета статистики */
         .val-bad { color: var(--bad) !important; }
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
         .sub-box {
             text-align: center; padding: 40px;
-            border: 2px dashed var(--border); border-radius: 16px;
+            border: 2px dashed var(--border); border-radius: 166px;
             color: rgba(255,255,255,0.2); font-family: 'Orbitron', sans-serif;
             letter-spacing: 2px; font-size: 12px;
         }
 
-        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ (Только для экранов меньше 600px) --- */
+        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
-            
             .header { margin-bottom: 40px; }
             .team-title { font-size: 26px; letter-spacing: 3px; }
-            
             .player-header { padding: 15px 15px; }
-            .player-info { gap: 10px; }
             .avatar-box { width: 42px; height: 42px; }
-            
-            /* Уменьшаем ник и лого только здесь */
             .nickname { font-size: 15px; gap: 10px; } 
+            .flag-img { width: 18px; } /* Уменьшили флаг на телефоне */
             .faceit-ico { width: 20px; }
-            
             .role-badge { font-size: 8px; padding: 4px 8px; }
-            
             .stats-grid { grid-template-columns: repeat(2, 1fr); padding: 12px; gap: 8px; }
             .stat-value { font-size: 16px; }
         }
@@ -157,7 +155,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    -himeraa666
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img" alt="UA"> -himeraa666
                     <a href="https://www.faceit.com/ru/players/MrFlayz" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -178,7 +176,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    angeldust
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img" alt="UA"> angeldust
                     <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -199,7 +197,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    lanes
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img" alt="UA"> lanes
                     <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -220,7 +218,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    aimlord
+                    <img src="https://flagcdn.com/w40/il.png" class="flag-img" alt="IL"> aimlord
                     <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
