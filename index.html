@@ -31,7 +31,7 @@
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        /* --- ШАПКА --- */
+        /* --- ШАПКА (Логотип и обновление) --- */
         .header { text-align: center; margin-bottom: 60px; }
         
         .logo-img { 
@@ -40,17 +40,13 @@
             filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
             margin-bottom: 15px; 
             transition: 0.2s ease;
-            cursor: pointer; /* Делаем курсор рукой */
+            cursor: pointer;
         }
-        
-        /* Эффекты при наведении и клике на лого */
         .logo-img:hover {
             filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
             transform: scale(1.05);
         }
-        .logo-img:active {
-            transform: scale(0.95); /* Эффект «вдавливания» при клике */
-        }
+        .logo-img:active { transform: scale(0.95); }
 
         .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
@@ -59,7 +55,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* --- ОСТАЛЬНОЕ БЕЗ ИЗМЕНЕНИЙ --- */
+        /* --- СЕКЦИИ --- */
         .section-label {
             font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
             letter-spacing: 3px; margin: 30px 0 20px;
@@ -67,6 +63,7 @@
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
+        /* --- КАРТОЧКА ИГРОКА --- */
         .player-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -78,6 +75,7 @@
 
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
         .player-header:hover { background: rgba(255,255,255,0.05); }
+        .no-click { cursor: default !important; pointer-events: none; }
 
         .player-info { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 0; }
         .avatar-box {
@@ -87,11 +85,19 @@
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
         .nickname { 
-            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; 
-            display: flex; align-items: center; gap: 15px; white-space: nowrap;
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 18px; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            white-space: nowrap;
         }
 
-        .flag-img { width: 24px; height: auto; border-radius: 2px; box-shadow: 0 0 5px rgba(0,0,0,0.5); flex-shrink: 0; }
+        .flag-img {
+            width: 24px; height: auto; border-radius: 2px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5); flex-shrink: 0;
+        }
         
         .faceit-link { display: flex; align-items: center; transition: 0.2s; flex-shrink: 0; }
         .faceit-ico { width: 26px; height: auto; display: block; }
@@ -103,6 +109,7 @@
             flex-shrink: 0;
         }
 
+        /* --- СТАТИСТИКА --- */
         .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
 
@@ -115,14 +122,28 @@
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
+        /* --- ИНТЕРАКТИВНЫЕ КНОПКИ (Coach/Sub) --- */
+        .info-link { text-decoration: none; display: block; margin-bottom: 15px; }
+
         .info-box {
             text-align: center; padding: 35px;
             border: 2px dashed var(--border); border-radius: 16px;
             color: rgba(255,255,255,0.2); font-family: 'Orbitron', sans-serif;
             letter-spacing: 2px; font-size: 12px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.01);
         }
 
+        .info-link:hover .info-box {
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            background: rgba(0, 242, 254, 0.05);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+            transform: translateY(-3px);
+        }
+        .info-link:active .info-box { transform: scale(0.98) translateY(0); }
+
+        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
             .header { margin-bottom: 35px; }
@@ -130,7 +151,7 @@
             .team-title { font-size: 26px; letter-spacing: 3px; }
             .player-header { padding: 15px 15px; }
             .avatar-box { width: 42px; height: 42px; }
-            .nickname { font-size: 15px; gap: 10px; } 
+            .nickname { font-size: 15px; gap: 8px; } 
             .flag-img { width: 18px; }
             .faceit-ico { width: 20px; }
             .role-badge { font-size: 8px; padding: 4px 8px; }
@@ -244,10 +265,14 @@
     </div>
 
     <div class="section-label">STRATEGIC COACH</div>
-    <div class="info-box">ANALYZING TACTICAL OPPORTUNITIES...</div>
+    <a href="#" target="_blank" class="info-link">
+        <div class="info-box">ANALYZING TACTICAL OPPORTUNITIES...</div>
+    </a>
 
     <div class="section-label">SUBSTITUTES</div>
-    <div class="info-box">SEARCHING FOR TALENTS...</div>
+    <a href="#" target="_blank" class="info-link">
+        <div class="info-box">SEARCHING FOR TALENTS...</div>
+    </a>
 </div>
 
 <script>
