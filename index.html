@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+    
     <title>Team Ego | Roster</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -78,18 +82,19 @@
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
         
+        /* Жесткая блокировка цвета */
         .stat-value { 
             display: block; 
             font-family: 'Orbitron', sans-serif; 
             font-size: 18px; 
             font-weight: 900;
-            color: #fff; /* Цвет по умолчанию */
+            color: #fff !important; /* Белый по умолчанию */
             text-decoration: none !important;
         }
         
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* Классы автоматической раскраски */
+        /* Приоритетные цветовые классы */
         .val-bad { color: var(--bad) !important; }
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
@@ -121,7 +126,7 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">himeraa666</div>
+                <div class="nickname">-himeraa666</div>
             </div>
             <div class="role-badge">IGL / AWP</div>
         </div>
@@ -198,16 +203,15 @@
 <script>
     function toggleStats(el) { el.parentElement.classList.toggle('active'); }
 
-    function updateColors() {
-        const elements = document.querySelectorAll('.stat-value');
-        elements.forEach(el => {
+    function runColorizer() {
+        const stats = document.querySelectorAll('.stat-value');
+        stats.forEach(el => {
             const type = el.getAttribute('data-type');
             if (!type) return;
 
-            // Извлекаем число (убираем % если есть)
-            const val = parseFloat(el.innerText.replace('%', ''));
+            const val = parseFloat(el.textContent.replace('%', ''));
             
-            // Сначала убираем все цветовые классы
+            // Удаляем старые классы
             el.classList.remove('val-bad', 'val-okay', 'val-good');
 
             if (type === 'kdr') {
@@ -228,8 +232,22 @@
         });
     }
 
-    // Запускаем раскраску
-    window.onload = updateColors;
+    // Запуск при загрузке
+    window.addEventListener('DOMContentLoaded', runColorizer);
+    window.addEventListener('load', runColorizer);
+
+    // MutationObserver — следит, чтобы браузер не вернул цифрам зеленый цвет
+    const observer = new MutationObserver(() => {
+        observer.disconnect(); // Чтобы не уйти в бесконечный цикл
+        runColorizer();
+        startObserving();
+    });
+
+    function startObserving() {
+        observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+
+    startObserving();
 </script>
 </body>
 </html>
