@@ -31,8 +31,27 @@
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
+        /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 60px; }
-        .logo-img { width: 120px; filter: drop-shadow(0 0 10px var(--primary)); margin-bottom: 10px; }
+        
+        .logo-img { 
+            width: 180px; 
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
+            margin-bottom: 15px; 
+            transition: 0.2s ease;
+            cursor: pointer; /* Делаем курсор рукой */
+        }
+        
+        /* Эффекты при наведении и клике на лого */
+        .logo-img:hover {
+            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
+            transform: scale(1.05);
+        }
+        .logo-img:active {
+            transform: scale(0.95); /* Эффект «вдавливания» при клике */
+        }
+
         .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
             letter-spacing: 6px; text-transform: uppercase;
@@ -40,6 +59,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
+        /* --- ОСТАЛЬНОЕ БЕЗ ИЗМЕНЕНИЙ --- */
         .section-label {
             font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
             letter-spacing: 3px; margin: 30px 0 20px;
@@ -58,7 +78,6 @@
 
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
         .player-header:hover { background: rgba(255,255,255,0.05); }
-        .no-click { cursor: default !important; pointer-events: none; }
 
         .player-info { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 0; }
         .avatar-box {
@@ -68,26 +87,13 @@
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
         .nickname { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 18px; 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            white-space: nowrap;
+            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; 
+            display: flex; align-items: center; gap: 15px; white-space: nowrap;
         }
 
-        /* Стиль для новых флагов-картинок */
-        .flag-img {
-            width: 24px; /* Ширина флага */
-            height: auto;
-            border-radius: 2px; /* Легкое закругление */
-            box-shadow: 0 0 5px rgba(0,0,0,0.5); /* Тень для объема */
-            flex-shrink: 0;
-        }
+        .flag-img { width: 24px; height: auto; border-radius: 2px; box-shadow: 0 0 5px rgba(0,0,0,0.5); flex-shrink: 0; }
         
         .faceit-link { display: flex; align-items: center; transition: 0.2s; flex-shrink: 0; }
-        .faceit-link:hover { opacity: 0.8; transform: scale(1.15); }
         .faceit-ico { width: 26px; height: auto; display: block; }
 
         .role-badge {
@@ -102,37 +108,30 @@
 
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
-        
-        .stat-value { 
-            display: block; 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 18px; 
-            font-weight: 900;
-            color: #fff !important;
-        }
-        
+        .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; color: #fff !important; }
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
         .val-bad { color: var(--bad) !important; }
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        .sub-box {
-            text-align: center; padding: 40px;
-            border: 2px dashed var(--border); border-radius: 166px;
+        .info-box {
+            text-align: center; padding: 35px;
+            border: 2px dashed var(--border); border-radius: 16px;
             color: rgba(255,255,255,0.2); font-family: 'Orbitron', sans-serif;
             letter-spacing: 2px; font-size: 12px;
+            transition: 0.3s;
         }
 
-        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
-            .header { margin-bottom: 40px; }
+            .header { margin-bottom: 35px; }
+            .logo-img { width: 110px; }
             .team-title { font-size: 26px; letter-spacing: 3px; }
             .player-header { padding: 15px 15px; }
             .avatar-box { width: 42px; height: 42px; }
             .nickname { font-size: 15px; gap: 10px; } 
-            .flag-img { width: 18px; } /* Уменьшили флаг на телефоне */
+            .flag-img { width: 18px; }
             .faceit-ico { width: 20px; }
             .role-badge { font-size: 8px; padding: 4px 8px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); padding: 12px; gap: 8px; }
@@ -144,7 +143,7 @@
 
 <div class="container">
     <header class="header">
-        <img src="logo.PNG" class="logo-img">
+        <img src="logo.PNG" class="logo-img" onclick="window.location.reload()" title="Обновить страницу">
         <h1 class="team-title">Team Ego</h1>
     </header>
 
@@ -155,7 +154,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img" alt="UA"> -himeraa666
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> -himeraa666
                     <a href="https://www.faceit.com/ru/players/MrFlayz" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -176,7 +175,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img" alt="UA"> angeldust
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> angeldust
                     <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -197,7 +196,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img" alt="UA"> lanes
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> lanes
                     <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -218,7 +217,7 @@
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
-                    <img src="https://flagcdn.com/w40/il.png" class="flag-img" alt="IL"> aimlord
+                    <img src="https://flagcdn.com/w40/il.png" class="flag-img"> aimlord
                     <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
                         <img src="faceit.png" class="faceit-ico">
                     </a>
@@ -244,8 +243,11 @@
         </div>
     </div>
 
+    <div class="section-label">STRATEGIC COACH</div>
+    <div class="info-box">ANALYZING TACTICAL OPPORTUNITIES...</div>
+
     <div class="section-label">SUBSTITUTES</div>
-    <div class="sub-box">SEARCHING FOR TALENTS...</div>
+    <div class="info-box">SEARCHING FOR TALENTS...</div>
 </div>
 
 <script>
