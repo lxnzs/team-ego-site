@@ -3,194 +3,94 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Team Ego | Roster</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <title>Team Ego | Roster & Stats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary: #00f2fe;
-            --secondary: #4facfe;
             --bg: #05070a;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
+            --bad: #ff4b4b;
+            --okay: #ffb800;
+            --good: #00ff85;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             background: var(--bg);
-            background-image: 
-                radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #0d1117 0%, transparent 40%);
+            background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
             padding: 40px 20px;
         }
 
-        .container {
-            width: 100%;
-            max-width: 800px;
-        }
+        .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        /* HEADER */
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .logo-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .logo-glow {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120%; height: 120%;
-            background: var(--primary);
-            filter: blur(40px);
-            opacity: 0.2;
-            z-index: -1;
-        }
-
-        .logo-img {
-            width: 120px;
-            filter: drop-shadow(0 0 10px rgba(0,242,254,0.5));
-        }
-
+        .header { text-align: center; margin-bottom: 60px; }
+        .logo-img { width: 120px; filter: drop-shadow(0 0 10px var(--primary)); margin-bottom: 10px; }
         .team-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 8px;
+            font-family: 'Orbitron', sans-serif; font-size: 42px; font-weight: 900;
+            letter-spacing: 8px; text-transform: uppercase;
             background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* SECTION LABEL */
         .section-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            color: var(--primary);
-            letter-spacing: 3px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            opacity: 0.8;
+            font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
+            letter-spacing: 3px; margin: 30px 0 20px;
+            display: flex; align-items: center; gap: 15px;
         }
+        .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
-        .section-label::after {
-            content: "";
-            height: 1px;
-            flex-grow: 1;
-            background: linear-gradient(to right, var(--primary), transparent);
-        }
-
-        /* PLAYER CARD */
-        .player-card {
+        .player-item {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 20px 30px;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
             overflow: hidden;
-        }
-
-        .player-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--primary);
-            opacity: 0;
             transition: 0.3s;
         }
 
-        .player-card:hover {
-            transform: translateX(10px) scale(1.02);
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(0, 242, 254, 0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .player-header:hover { background: rgba(255,255,255,0.05); }
 
-        .player-card:hover::before { opacity: 1; }
+        /* Стиль для неактивной карточки (SOON) */
+        .no-click { cursor: default !important; }
+        .no-click:hover { background: none !important; }
 
-        .player-info {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
+        .player-info { display: flex; align-items: center; gap: 20px; }
         .avatar-box {
-            width: 55px;
-            height: 55px;
-            background: #111;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            width: 50px; height: 50px; background: #111; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
         }
+        .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
-        .avatar-box img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-            filter: brightness(0) invert(1); /* Делает силуэт белым */
-        }
-
-        .nickname {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
+        .nickname { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; }
         .role-badge {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 20px;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.1);
+            font-family: 'Orbitron', sans-serif; font-size: 10px;
+            padding: 5px 12px; border-radius: 20px;
+            border: 1px solid var(--primary); color: var(--primary);
         }
+
+        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
+        .player-item.active .stats-panel { max-height: 200px; border-top: 1px solid var(--border); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
+        .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
+        .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; }
+        .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
+
+        .val-bad { color: var(--bad) !important; text-shadow: 0 0 10px rgba(255,75,75,0.3); }
+        .val-okay { color: var(--okay) !important; text-shadow: 0 0 10px rgba(255,184,0,0.3); }
+        .val-good { color: var(--good) !important; text-shadow: 0 0 10px rgba(0,255,133,0.3); }
 
         .sub-box {
-            text-align: center;
-            padding: 30px;
-            border: 2px dashed var(--border);
-            border-radius: 16px;
-            color: var(--text-muted);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            letter-spacing: 2px;
-        }
-
-        /* Анимация появления */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: slideIn 0.6s ease forwards;
+            text-align: center; padding: 40px;
+            border: 2px dashed var(--border); border-radius: 16px;
+            color: rgba(255,255,255,0.2); font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px; font-size: 12px;
         }
     </style>
 </head>
@@ -198,70 +98,120 @@
 
 <div class="container">
     <header class="header">
-        <div class="logo-wrapper">
-            <div class="logo-glow"></div>
-            <img src="logo.PNG" alt="EGO" class="logo-img">
-        </div>
+        <img src="logo.PNG" class="logo-img">
         <h1 class="team-title">Team Ego</h1>
     </header>
 
     <div class="section-label">MAIN ROSTER</div>
 
-    <div class="player-card fade-in" style="animation-delay: 0.1s;">
-        <div class="player-info">
-            <div class="avatar-box">
-                <img src="avatar.PNG" alt="player">
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">himeraa666</div>
             </div>
-            <div class="nickname">-himeraa666</div>
+            <div class="role-badge">IGL / AWP</div>
         </div>
-        <div class="role-badge">IGL / AWP</div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.26</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">87.9</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">45%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">60%</span><span class="stat-label">Wins</span></div>
+        </div></div>
     </div>
 
-    <div class="player-card fade-in" style="animation-delay: 0.2s;">
-        <div class="player-info">
-            <div class="avatar-box">
-                <img src="avatar.PNG" alt="player">
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">angeldust</div>
             </div>
-            <div class="nickname">angeldust</div>
+            <div class="role-badge">RIFLE</div>
         </div>
-        <div class="role-badge">RIFLE</div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+        </div></div>
     </div>
 
-    <div class="player-card fade-in" style="animation-delay: 0.3s;">
-        <div class="player-info">
-            <div class="avatar-box">
-                <img src="avatar.PNG" alt="player">
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">lanes</div>
             </div>
-            <div class="nickname">lanes</div>
+            <div class="role-badge">SUPPORT</div>
         </div>
-        <div class="role-badge">SUPPORT</div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+        </div></div>
     </div>
 
-    <div class="player-card fade-in" style="animation-delay: 0.4s;">
-        <div class="player-info">
-            <div class="avatar-box">
-                <img src="avatar.PNG" alt="player">
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">aimlord</div>
             </div>
-            <div class="nickname">aimlord</div>
+            <div class="role-badge">LURKER</div>
         </div>
-        <div class="role-badge">LURKER</div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
+        </div></div>
     </div>
 
-    <div class="player-card fade-in" style="animation-delay: 0.5s;">
-        <div class="player-info">
-            <div class="avatar-box">
-                <img src="avatar.PNG" alt="player">
+    <div class="player-item">
+        <div class="player-header no-click">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">SOON...</div>
             </div>
-            <div class="nickname">SOON...</div>
+            <div class="role-badge" style="opacity: 0.5;">TBD</div>
         </div>
-        <div class="role-badge">TBD</div>
     </div>
 
-    <div class="section-label" style="margin-top: 40px;">SUBSTITUTES</div>
-    <div class="sub-box fade-in" style="animation-delay: 0.6s;">
-        SEARCHING FOR TALENTS...
-    </div>
+    <div class="section-label">SUBSTITUTES</div>
+    <div class="sub-box">SEARCHING FOR TALENTS...</div>
 </div>
 
+<script>
+    function toggleStats(el) { el.parentElement.classList.toggle('active'); }
+
+    function colorize() {
+        document.querySelectorAll('.stat-value').forEach(item => {
+            const val = parseFloat(item.innerText);
+            const type = item.getAttribute('data-type');
+            
+            // Сначала очищаем старые цвета
+            item.classList.remove('val-bad', 'val-okay', 'val-good');
+
+            if(type === 'kdr') {
+                if(val < 1.0) item.classList.add('val-bad');
+                else if(val <= 1.2) item.classList.add('val-okay');
+                else item.classList.add('val-good');
+            }
+            if(type === 'adr') {
+                if(val < 75) item.classList.add('val-bad');
+                else if(val <= 85) item.classList.add('val-okay');
+                else item.classList.add('val-good');
+            }
+            if(type === 'hs' || type === 'winrate') {
+                if(val < 45) item.classList.add('val-bad');
+                else if(val <= 55) item.classList.add('val-okay');
+                else item.classList.add('val-good');
+            }
+        });
+    }
+    // Запуск при загрузке
+    window.onload = colorize;
+</script>
 </body>
 </html>
