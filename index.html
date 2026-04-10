@@ -13,7 +13,6 @@
             --bg: #05070a;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
-            /* Цвета для статов */
             --bad: #ff4b4b;
             --okay: #ffb800;
             --good: #00ff85;
@@ -53,6 +52,7 @@
             border-radius: 16px;
             margin-bottom: 15px;
             overflow: hidden;
+            transition: 0.3s;
         }
 
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
@@ -78,21 +78,21 @@
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
         
-        /* Принудительный сброс цвета для телефонов */
         .stat-value { 
             display: block; 
             font-family: 'Orbitron', sans-serif; 
             font-size: 18px; 
             font-weight: 900;
+            color: #fff; /* Цвет по умолчанию */
             text-decoration: none !important;
         }
         
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* Классы для ручной раскраски */
-        .txt-bad { color: var(--bad) !important; }
-        .txt-okay { color: var(--okay) !important; }
-        .txt-good { color: var(--good) !important; }
+        /* Классы автоматической раскраски */
+        .val-bad { color: var(--bad) !important; }
+        .val-okay { color: var(--okay) !important; }
+        .val-good { color: var(--good) !important; }
 
         .sub-box {
             text-align: center; padding: 40px;
@@ -121,15 +121,15 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">-himeraa666</div>
+                <div class="nickname">himeraa666</div>
             </div>
             <div class="role-badge">IGL / AWP</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value txt-good">1.26</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value txt-good">87.9</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value txt-okay">45%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value txt-good">60%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.26</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">87.9</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">45%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">60%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -142,10 +142,10 @@
             <div class="role-badge">RIFLE</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value txt-bad">1.17</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value txt-bad">89.4</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value txt-okay">46%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value txt-bad">46%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -158,10 +158,10 @@
             <div class="role-badge">SUPPORT</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value txt-okay">1.19</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value txt-okay">82.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value txt-bad">40%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value txt-okay">46%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -174,10 +174,10 @@
             <div class="role-badge">LURKER</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value txt-good">0.86</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value txt-good">68.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value txt-good">60%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value txt-good">43%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -197,6 +197,39 @@
 
 <script>
     function toggleStats(el) { el.parentElement.classList.toggle('active'); }
+
+    function updateColors() {
+        const elements = document.querySelectorAll('.stat-value');
+        elements.forEach(el => {
+            const type = el.getAttribute('data-type');
+            if (!type) return;
+
+            // Извлекаем число (убираем % если есть)
+            const val = parseFloat(el.innerText.replace('%', ''));
+            
+            // Сначала убираем все цветовые классы
+            el.classList.remove('val-bad', 'val-okay', 'val-good');
+
+            if (type === 'kdr') {
+                if (val < 1.0) el.classList.add('val-bad');
+                else if (val <= 1.2) el.classList.add('val-okay');
+                else el.classList.add('val-good');
+            } 
+            else if (type === 'adr') {
+                if (val < 75) el.classList.add('val-bad');
+                else if (val <= 85) el.classList.add('val-okay');
+                else el.classList.add('val-good');
+            } 
+            else if (type === 'hs' || type === 'winrate') {
+                if (val < 45) el.classList.add('val-bad');
+                else if (val <= 55) el.classList.add('val-okay');
+                else el.classList.add('val-good');
+            }
+        });
+    }
+
+    // Запускаем раскраску
+    window.onload = updateColors;
 </script>
 </body>
 </html>
