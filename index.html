@@ -31,8 +31,8 @@
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        /* --- ШАПКА (Логотип и обновление) --- */
-        .header { text-align: center; margin-bottom: 60px; }
+        /* --- ШАПКА --- */
+        .header { text-align: center; margin-bottom: 40px; }
         
         .logo-img { 
             width: 180px; 
@@ -53,7 +53,33 @@
             letter-spacing: 6px; text-transform: uppercase;
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
         }
+
+        /* --- КНОПКА ИСТОРИИ МАТЧЕЙ --- */
+        .match-history-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 25px;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid var(--primary);
+            border-radius: 30px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .match-history-btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
+        }
+        .match-history-btn:active { transform: scale(0.95); }
 
         /* --- СЕКЦИИ --- */
         .section-label {
@@ -85,19 +111,11 @@
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
         .nickname { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 18px; 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            white-space: nowrap;
+            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; 
+            display: flex; align-items: center; gap: 12px; white-space: nowrap;
         }
 
-        .flag-img {
-            width: 24px; height: auto; border-radius: 2px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.5); flex-shrink: 0;
-        }
+        .flag-img { width: 24px; height: auto; border-radius: 2px; box-shadow: 0 0 5px rgba(0,0,0,0.5); flex-shrink: 0; }
         
         .faceit-link { display: flex; align-items: center; transition: 0.2s; flex-shrink: 0; }
         .faceit-ico { width: 26px; height: auto; display: block; }
@@ -112,7 +130,6 @@
         /* --- СТАТИСТИКА --- */
         .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
-
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
         .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; color: #fff !important; }
@@ -124,7 +141,6 @@
 
         /* --- ИНТЕРАКТИВНЫЕ КНОПКИ (Coach/Sub) --- */
         .info-link { text-decoration: none; display: block; margin-bottom: 15px; }
-
         .info-box {
             text-align: center; padding: 35px;
             border: 2px dashed var(--border); border-radius: 16px;
@@ -133,7 +149,6 @@
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.01);
         }
-
         .info-link:hover .info-box {
             color: var(--primary);
             border: 2px solid var(--primary);
@@ -141,14 +156,14 @@
             box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
             transform: translateY(-3px);
         }
-        .info-link:active .info-box { transform: scale(0.98) translateY(0); }
 
         /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
-            .header { margin-bottom: 35px; }
+            .header { margin-bottom: 30px; }
             .logo-img { width: 110px; }
             .team-title { font-size: 26px; letter-spacing: 3px; }
+            .match-history-btn { padding: 8px 18px; font-size: 10px; }
             .player-header { padding: 15px 15px; }
             .avatar-box { width: 42px; height: 42px; }
             .nickname { font-size: 15px; gap: 8px; } 
@@ -166,6 +181,10 @@
     <header class="header">
         <img src="logo.PNG" class="logo-img" onclick="window.location.reload()" title="Обновить страницу">
         <h1 class="team-title">Team Ego</h1>
+        
+        <a href="#" target="_blank" class="match-history-btn">
+            <span>📊</span> Match History
+        </a>
     </header>
 
     <div class="section-label">MAIN ROSTER</div>
