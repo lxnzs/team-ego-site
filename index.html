@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>Team Ego | Roster & Stats</title>
+    <title>Team Ego | Roster</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -13,12 +13,14 @@
             --bg: #05070a;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
-            --bad: #ff4b4b !important;
-            --okay: #ffb800 !important;
-            --good: #00ff85 !important;
+            /* Цвета для статов */
+            --bad: #ff4b4b;
+            --okay: #ffb800;
+            --good: #00ff85;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
             background: var(--bg);
             background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
@@ -51,11 +53,9 @@
             border-radius: 16px;
             margin-bottom: 15px;
             overflow: hidden;
-            transition: 0.3s;
         }
 
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-        .player-header:hover { background: rgba(255,255,255,0.05); }
         .no-click { cursor: default !important; pointer-events: none; }
 
         .player-info { display: flex; align-items: center; gap: 15px; }
@@ -78,22 +78,21 @@
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
         
-        /* УБИРАЕМ ЗЕЛЕНЫЙ ЦВЕТ ССЫЛОК И ТЕЛЕФОНОВ */
+        /* Принудительный сброс цвета для телефонов */
         .stat-value { 
             display: block; 
             font-family: 'Orbitron', sans-serif; 
             font-size: 18px; 
             font-weight: 900;
-            color: #fff; /* Цвет по умолчанию белый */
             text-decoration: none !important;
         }
         
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* КЛАССЫ ЦВЕТОВ С ПРИНУДИТЕЛЬНЫМ ПРИМЕНЕНИЕМ */
-        .val-bad { color: #ff4b4b !important; }
-        .val-okay { color: #ffb800 !important; }
-        .val-good { color: #00ff85 !important; }
+        /* Классы для ручной раскраски */
+        .txt-bad { color: var(--bad) !important; }
+        .txt-okay { color: var(--okay) !important; }
+        .txt-good { color: var(--good) !important; }
 
         .sub-box {
             text-align: center; padding: 40px;
@@ -127,10 +126,10 @@
             <div class="role-badge">IGL / AWP</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.26</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">87.9</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">45%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">60%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">1.26</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">87.9</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value txt-okay">45%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">60%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -143,10 +142,10 @@
             <div class="role-badge">RIFLE</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">0.95</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">72.5</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">52%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">48%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value txt-bad">0.95</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value txt-bad">72.5</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value txt-okay">52%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value txt-bad">48%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -159,10 +158,10 @@
             <div class="role-badge">SUPPORT</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.05</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">78.2</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">38%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">55%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value txt-okay">1.05</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value txt-okay">78.2</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value txt-bad">38%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value txt-okay">55%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -175,10 +174,10 @@
             <div class="role-badge">LURKER</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.35</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">92.1</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">58%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">62%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">1.35</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">92.1</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">58%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value txt-good">62%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -198,36 +197,6 @@
 
 <script>
     function toggleStats(el) { el.parentElement.classList.toggle('active'); }
-
-    function applyColors() {
-        const stats = document.querySelectorAll('.stat-value');
-        stats.forEach(s => {
-            // Очищаем текст от % и превращаем в число
-            const val = parseFloat(s.innerText.replace('%', ''));
-            const type = s.getAttribute('data-type');
-            
-            s.classList.remove('val-bad', 'val-okay', 'val-good');
-
-            if (type === 'kdr') {
-                if (val < 1.0) s.classList.add('val-bad');
-                else if (val <= 1.2) s.classList.add('val-okay');
-                else s.classList.add('val-good');
-            } else if (type === 'adr') {
-                if (val < 75) s.classList.add('val-bad');
-                else if (val <= 85) s.classList.add('val-okay');
-                else s.classList.add('val-good');
-            } else if (type === 'hs' || type === 'winrate') {
-                if (val < 45) s.classList.add('val-bad');
-                else if (val <= 55) s.classList.add('val-okay');
-                else s.classList.add('val-good');
-            }
-        });
-    }
-
-    // Запускаем раскраску несколько раз, чтобы перебить настройки телефона
-    window.addEventListener('load', applyColors);
-    document.addEventListener('DOMContentLoaded', applyColors);
-    setTimeout(applyColors, 500);
 </script>
 </body>
 </html>
