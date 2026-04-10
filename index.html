@@ -2,9 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    
     <title>Team Ego | Roster & Stats</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -14,20 +13,18 @@
             --bg: #05070a;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
-            --bad: #ff4b4b;
-            --okay: #ffb800;
-            --good: #00ff85;
+            --bad: #ff4b4b !important;
+            --okay: #ffb800 !important;
+            --good: #00ff85 !important;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             background: var(--bg);
             background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             padding: 40px 20px;
-            -webkit-text-size-adjust: 100%; /* Убирает авто-изменение размера текста на iOS */
         }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
@@ -35,8 +32,8 @@
         .header { text-align: center; margin-bottom: 60px; }
         .logo-img { width: 120px; filter: drop-shadow(0 0 10px var(--primary)); margin-bottom: 10px; }
         .team-title {
-            font-family: 'Orbitron', sans-serif; font-size: 42px; font-weight: 900;
-            letter-spacing: 8px; text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
+            letter-spacing: 6px; text-transform: uppercase;
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
@@ -59,11 +56,9 @@
 
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
         .player-header:hover { background: rgba(255,255,255,0.05); }
-
-        /* Стиль для SOON */
         .no-click { cursor: default !important; pointer-events: none; }
 
-        .player-info { display: flex; align-items: center; gap: 20px; }
+        .player-info { display: flex; align-items: center; gap: 15px; }
         .avatar-box {
             width: 50px; height: 50px; background: #111; border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
@@ -71,7 +66,6 @@
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
         .nickname { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; }
-        
         .role-badge {
             font-family: 'Orbitron', sans-serif; font-size: 10px;
             padding: 5px 12px; border-radius: 20px;
@@ -79,25 +73,27 @@
         }
 
         .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
-        .player-item.active .stats-panel { max-height: 200px; border-top: 1px solid var(--border); }
+        .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
 
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
         
+        /* УБИРАЕМ ЗЕЛЕНЫЙ ЦВЕТ ССЫЛОК И ТЕЛЕФОНОВ */
         .stat-value { 
             display: block; 
             font-family: 'Orbitron', sans-serif; 
             font-size: 18px; 
-            font-weight: 900; 
-            color: inherit; /* Важно для телефонов */
+            font-weight: 900;
+            color: #fff; /* Цвет по умолчанию белый */
+            text-decoration: none !important;
         }
         
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* ЦВЕТА СТАТИСТИКИ */
-        .val-bad { color: var(--bad) !important; text-shadow: 0 0 8px rgba(255,75,75,0.2); }
-        .val-okay { color: var(--okay) !important; text-shadow: 0 0 8px rgba(255,184,0,0.2); }
-        .val-good { color: var(--good) !important; text-shadow: 0 0 8px rgba(0,255,133,0.2); }
+        /* КЛАССЫ ЦВЕТОВ С ПРИНУДИТЕЛЬНЫМ ПРИМЕНЕНИЕМ */
+        .val-bad { color: #ff4b4b !important; }
+        .val-okay { color: #ffb800 !important; }
+        .val-good { color: #00ff85 !important; }
 
         .sub-box {
             text-align: center; padding: 40px;
@@ -106,11 +102,9 @@
             letter-spacing: 2px; font-size: 12px;
         }
 
-        /* Адаптивность для мобилок */
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .player-header { padding: 15px 20px; }
-            .team-title { font-size: 30px; letter-spacing: 4px; }
+            .team-title { font-size: 28px; }
         }
     </style>
 </head>
@@ -194,7 +188,7 @@
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">SOON...</div>
             </div>
-            <div class="role-badge" style="opacity: 0.5; border-color: rgba(255,255,255,0.2); color: #fff;">TBD</div>
+            <div class="role-badge" style="opacity: 0.5;">TBD</div>
         </div>
     </div>
 
@@ -205,35 +199,35 @@
 <script>
     function toggleStats(el) { el.parentElement.classList.toggle('active'); }
 
-    function colorize() {
-        document.querySelectorAll('.stat-value').forEach(item => {
-            const val = parseFloat(item.innerText);
-            const type = item.getAttribute('data-type');
+    function applyColors() {
+        const stats = document.querySelectorAll('.stat-value');
+        stats.forEach(s => {
+            // Очищаем текст от % и превращаем в число
+            const val = parseFloat(s.innerText.replace('%', ''));
+            const type = s.getAttribute('data-type');
             
-            // Очистка классов
-            item.classList.remove('val-bad', 'val-okay', 'val-good');
+            s.classList.remove('val-bad', 'val-okay', 'val-good');
 
-            if(type === 'kdr') {
-                if(val < 1.0) item.classList.add('val-bad');
-                else if(val <= 1.2) item.classList.add('val-okay');
-                else item.classList.add('val-good');
-            }
-            if(type === 'adr') {
-                if(val < 75) item.classList.add('val-bad');
-                else if(val <= 85) item.classList.add('val-okay');
-                else item.classList.add('val-good');
-            }
-            if(type === 'hs' || type === 'winrate') {
-                if(val < 45) item.classList.add('val-bad');
-                else if(val <= 55) item.classList.add('val-okay');
-                else item.classList.add('val-good');
+            if (type === 'kdr') {
+                if (val < 1.0) s.classList.add('val-bad');
+                else if (val <= 1.2) s.classList.add('val-okay');
+                else s.classList.add('val-good');
+            } else if (type === 'adr') {
+                if (val < 75) s.classList.add('val-bad');
+                else if (val <= 85) s.classList.add('val-okay');
+                else s.classList.add('val-good');
+            } else if (type === 'hs' || type === 'winrate') {
+                if (val < 45) s.classList.add('val-bad');
+                else if (val <= 55) s.classList.add('val-okay');
+                else s.classList.add('val-good');
             }
         });
     }
-    
-    // Запускаем раскраску сразу и на всякий случай через 100мс
-    window.onload = colorize;
-    setTimeout(colorize, 100); 
+
+    // Запускаем раскраску несколько раз, чтобы перебить настройки телефона
+    window.addEventListener('load', applyColors);
+    document.addEventListener('DOMContentLoaded', applyColors);
+    setTimeout(applyColors, 500);
 </script>
 </body>
 </html>
