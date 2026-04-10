@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no">
+    
     <title>Team Ego | Roster & Stats</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -19,12 +20,14 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background: var(--bg);
             background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             padding: 40px 20px;
+            -webkit-text-size-adjust: 100%; /* Убирает авто-изменение размера текста на iOS */
         }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
@@ -57,9 +60,8 @@
         .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
         .player-header:hover { background: rgba(255,255,255,0.05); }
 
-        /* Стиль для неактивной карточки (SOON) */
-        .no-click { cursor: default !important; }
-        .no-click:hover { background: none !important; }
+        /* Стиль для SOON */
+        .no-click { cursor: default !important; pointer-events: none; }
 
         .player-info { display: flex; align-items: center; gap: 20px; }
         .avatar-box {
@@ -69,6 +71,7 @@
         .avatar-box img { width: 70%; filter: brightness(0) invert(1); }
 
         .nickname { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; }
+        
         .role-badge {
             font-family: 'Orbitron', sans-serif; font-size: 10px;
             padding: 5px 12px; border-radius: 20px;
@@ -80,18 +83,34 @@
 
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px; }
-        .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; }
+        
+        .stat-value { 
+            display: block; 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 18px; 
+            font-weight: 900; 
+            color: inherit; /* Важно для телефонов */
+        }
+        
         .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        .val-bad { color: var(--bad) !important; text-shadow: 0 0 10px rgba(255,75,75,0.3); }
-        .val-okay { color: var(--okay) !important; text-shadow: 0 0 10px rgba(255,184,0,0.3); }
-        .val-good { color: var(--good) !important; text-shadow: 0 0 10px rgba(0,255,133,0.3); }
+        /* ЦВЕТА СТАТИСТИКИ */
+        .val-bad { color: var(--bad) !important; text-shadow: 0 0 8px rgba(255,75,75,0.2); }
+        .val-okay { color: var(--okay) !important; text-shadow: 0 0 8px rgba(255,184,0,0.2); }
+        .val-good { color: var(--good) !important; text-shadow: 0 0 8px rgba(0,255,133,0.2); }
 
         .sub-box {
             text-align: center; padding: 40px;
             border: 2px dashed var(--border); border-radius: 16px;
             color: rgba(255,255,255,0.2); font-family: 'Orbitron', sans-serif;
             letter-spacing: 2px; font-size: 12px;
+        }
+
+        /* Адаптивность для мобилок */
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .player-header { padding: 15px 20px; }
+            .team-title { font-size: 30px; letter-spacing: 4px; }
         }
     </style>
 </head>
@@ -109,7 +128,7 @@
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
                 <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">-himeraa666</div>
+                <div class="nickname">himeraa666</div>
             </div>
             <div class="role-badge">IGL / AWP</div>
         </div>
@@ -130,10 +149,10 @@
             <div class="role-badge">RIFLE</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">0.95</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">72.5</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">52%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">48%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -146,10 +165,10 @@
             <div class="role-badge">SUPPORT</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.05</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">78.2</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">38%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">55%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -162,10 +181,10 @@
             <div class="role-badge">LURKER</div>
         </div>
         <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.35</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">92.1</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">58%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">62%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
 
@@ -175,7 +194,7 @@
                 <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">SOON...</div>
             </div>
-            <div class="role-badge" style="opacity: 0.5;">TBD</div>
+            <div class="role-badge" style="opacity: 0.5; border-color: rgba(255,255,255,0.2); color: #fff;">TBD</div>
         </div>
     </div>
 
@@ -191,7 +210,7 @@
             const val = parseFloat(item.innerText);
             const type = item.getAttribute('data-type');
             
-            // Сначала очищаем старые цвета
+            // Очистка классов
             item.classList.remove('val-bad', 'val-okay', 'val-good');
 
             if(type === 'kdr') {
@@ -211,8 +230,10 @@
             }
         });
     }
-    // Запуск при загрузке
+    
+    // Запускаем раскраску сразу и на всякий случай через 100мс
     window.onload = colorize;
+    setTimeout(colorize, 100); 
 </script>
 </body>
 </html>
