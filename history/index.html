@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-    
     <title>Team Ego | Match History</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -15,7 +13,6 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
             --bad: #ff4b4b;
-            --okay: #ffb800;
             --good: #00ff85;
         }
 
@@ -27,127 +24,101 @@
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             padding: 40px 20px;
+            min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 800px; margin: 0 auto; }
+        .container { width: 100%; max-width: 900px; margin: 0 auto; }
 
-        /* --- ШАПКА (КОПИЯ ГЛАВНОГО МЕНЮ) --- */
+        /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 40px; }
-        
-        /* Глаз: теперь точно такие же стили и обертка */
         .logo-img { 
-            width: 180px; 
-            height: auto;
+            width: 180px; height: auto;
             filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-            margin-bottom: 15px; 
-            transition: 0.2s ease;
-            cursor: pointer;
+            margin-bottom: 15px; transition: 0.2s ease;
         }
-        .logo-img:hover {
-            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
-            transform: scale(1.05);
-        }
-        .logo-img:active { transform: scale(0.95); }
-
         .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
             letter-spacing: 6px; text-transform: uppercase;
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        /* --- КНОПКА НАЗАД (СТИЛЬ КАК У ИСТОРИИ) --- */
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 25px;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--primary);
-            border-radius: 30px;
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 25px; background: rgba(0, 242, 254, 0.05);
+            border: 1px solid var(--primary); border-radius: 30px;
+            color: var(--primary); font-family: 'Orbitron', sans-serif;
+            font-size: 11px; letter-spacing: 2px; text-decoration: none;
+            text-transform: uppercase; transition: 0.3s;
         }
-        .back-btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            transform: translateY(-2px);
-        }
+        .back-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
 
-        /* --- РАЗДЕЛ --- */
+        /* --- КАРТОЧКА МАТЧА --- */
         .section-label {
             font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
-            letter-spacing: 3px; margin: 30px 0 20px;
-            display: flex; align-items: center; gap: 15px;
+            letter-spacing: 3px; margin: 40px 0 20px; display: flex; align-items: center; gap: 15px;
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
-        /* --- КАРТОЧКА МАТЧА (СТИЛЬ КАК У ИГРОКА) --- */
-        .match-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            transition: 0.3s;
+        .match-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 20px; overflow: hidden; margin-bottom: 20px;
+            transition: 0.3s ease;
         }
 
-        .match-header { 
-            padding: 20px 30px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            cursor: pointer; 
+        .match-header-click {
+            padding: 25px; display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: 0.2s;
         }
-        .match-header:hover { background: rgba(255,255,255,0.05); }
+        .match-header-click:hover { background: rgba(255,255,255,0.03); }
 
-        .match-info { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .match-main-info { display: flex; align-items: center; gap: 20px; }
+        .win-dot { width: 12px; height: 12px; background: var(--good); border-radius: 50%; box-shadow: 0 0 10px var(--good); }
+
+        .vs-box { font-family: 'Orbitron', sans-serif; }
+        .vs-teams { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .vs-teams span { color: var(--primary); }
+        .vs-map { font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; }
+
+        .match-score {
+            font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900;
+            color: var(--good); padding: 5px 15px; border-radius: 12px;
+            background: rgba(0, 255, 133, 0.05); border: 1px solid rgba(0, 255, 133, 0.2);
+        }
+
+        /* --- ПАНЕЛЬ СТАТИСТИКИ (ПЛАВНАЯ) --- */
+        .stats-wrapper {
+            max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0,0,0,0.3);
+        }
+        .match-card.active .stats-wrapper { max-height: 2000px; border-top: 1px solid var(--border); }
+
+        .stats-container { padding: 20px; overflow-x: auto; }
         
-        .win-indicator {
-            width: 10px; height: 10px; background: var(--good); border-radius: 50%;
-            box-shadow: 0 0 10px var(--good);
+        .team-row-header {
+            background: rgba(255,255,255,0.05); padding: 8px 15px;
+            font-family: 'Orbitron'; font-size: 12px; color: var(--primary);
+            border-left: 3px solid var(--primary); margin: 15px 0 10px;
         }
 
-        .match-details { font-family: 'Orbitron', sans-serif; }
-        .opponent-name { font-size: 18px; font-weight: 700; display: block; }
-        .match-map { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 2px; }
-
-        .score-badge {
-            font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900;
-            padding: 8px 15px; border-radius: 10px;
-            background: rgba(0, 255, 133, 0.1); border: 1px solid var(--good); color: var(--good);
+        .stats-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        .stats-table th {
+            text-align: left; padding: 10px; font-family: 'Orbitron';
+            font-size: 10px; color: #444; text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
         }
+        .stats-table td { padding: 12px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02); }
 
-        /* --- СТАТИСТИКА МАТЧА (ВЫПАДАЮЩАЯ) --- */
-        .match-stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
-        .match-item.active .match-stats-panel { max-height: 1000px; border-top: 1px solid var(--border); }
-        
-        .stats-table { width: 100%; border-collapse: collapse; color: #fff; }
-        .stats-table th { 
-            text-align: left; padding: 15px 20px; font-family: 'Orbitron'; 
-            font-size: 10px; color: #555; border-bottom: 1px solid var(--border);
-        }
-        .stats-table td { padding: 12px 20px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.02); }
-        .stats-table tr:last-child td { border-bottom: none; }
-        
-        .p-name { font-family: 'Orbitron'; font-weight: 700; }
-        .p-stat { font-family: 'Orbitron'; font-weight: 900; text-align: center; }
+        .nick { font-family: 'Orbitron'; font-weight: 700; color: #fff; }
+        .val { font-family: 'Orbitron'; text-align: center; }
+        .sub-val { color: #666; font-size: 11px; text-align: center; }
 
-        /* Адаптация */
+        /* Mobile */
         @media (max-width: 600px) {
-            .logo-img { width: 110px; }
-            .team-title { font-size: 26px; }
-            .match-header { padding: 15px; }
-            .opponent-name { font-size: 15px; }
-            .score-badge { font-size: 14px; padding: 5px 10px; }
-            .stats-table td, .stats-table th { padding: 10px; font-size: 12px; }
+            .vs-teams { font-size: 14px; }
+            .match-score { font-size: 18px; }
+            .stats-container { padding: 10px; }
         }
     </style>
 </head>
@@ -155,75 +126,121 @@
 
 <div class="container">
     <header class="header">
-        <a href="/"><img src="/logo.PNG" class="logo-img" title="На главную"></a>
+        <a href="/"><img src="/logo.PNG" class="logo-img"></a>
         <h1 class="team-title">Team Ego</h1>
-        
-        <a href="/" class="back-btn">
-            <span>←</span> Back to Home
-        </a>
+        <a href="/" class="back-btn">← Back to Roster</a>
     </header>
 
-    <div class="section-label">LATEST MATCH</div>
+    <div class="section-label">LATEST MATCHES</div>
 
-    <div class="match-item">
-        <div class="match-header" onclick="toggleStats(this)">
-            <div class="match-info">
-                <div class="win-indicator"></div>
-                <div class="match-details">
-                    <span class="opponent-name">NAVI JUNIOR</span>
-                    <span class="match-map">Ancient</span>
+    <div class="match-card">
+        <div class="match-header-click" onclick="this.parentElement.classList.toggle('active')">
+            <div class="match-main-info">
+                <div class="win-dot"></div>
+                <div class="vs-box">
+                    <div class="vs-teams">TEAM EGO <span>vs</span> NAVI JUNIOR</div>
+                    <div class="vs-map">Ancient</div>
                 </div>
             </div>
-            <div class="score-badge">13 : 10</div>
+            <div class="match-score">13:10</div>
         </div>
-        
-        <div class="match-stats-panel">
-            <table class="stats-table">
-                <thead>
-                    <tr>
-                        <th>PLAYER</th>
-                        <th style="text-align:center">K/D</th>
-                        <th style="text-align:center">ADR</th>
-                        <th style="text-align:center">HS%</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="p-name">-himeraa666</td>
-                        <td class="p-stat" style="color:var(--good)">1.45</td>
-                        <td class="p-stat">95.2</td>
-                        <td class="p-stat">45%</td>
-                    </tr>
-                    <tr>
-                        <td class="p-name">angeldust</td>
-                        <td class="p-stat" style="color:var(--good)">1.20</td>
-                        <td class="p-stat">88.4</td>
-                        <td class="p-stat">52%</td>
-                    </tr>
-                    <tr>
-                        <td class="p-name">lanes</td>
-                        <td class="p-stat" style="color:var(--okay)">1.05</td>
-                        <td class="p-stat">76.1</td>
-                        <td class="p-stat">35%</td>
-                    </tr>
-                    <tr>
-                        <td class="p-name">aimlord</td>
-                        <td class="p-stat" style="color:var(--bad)">0.85</td>
-                        <td class="p-stat">62.3</td>
-                        <td class="p-stat">65%</td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <div class="stats-wrapper">
+            <div class="stats-container">
+                <div class="team-row-header">TEAM EGO</div>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th style="text-align:center">K</th>
+                            <th style="text-align:center">D</th>
+                            <th style="text-align:center">A</th>
+                            <th style="text-align:center">ADR</th>
+                            <th style="text-align:center">K/D</th>
+                            <th style="text-align:center">K/R</th>
+                            <th style="text-align:center">HS</th>
+                            <th style="text-align:center">HS%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="nick">-himeraa666</td>
+                            <td class="val">22</td>
+                            <td class="val">14</td>
+                            <td class="val">7</td>
+                            <td class="val">113.3</td>
+                            <td class="val" style="color:var(--good)">1.57</td>
+                            <td class="val">1.00</td>
+                            <td class="val">14</td>
+                            <td class="val">63.6%</td>
+                        </tr>
+                        <tr>
+                            <td class="nick">angeldust</td>
+                            <td class="val">20</td>
+                            <td class="val">15</td>
+                            <td class="val">12</td>
+                            <td class="val">104.8</td>
+                            <td class="val" style="color:var(--good)">1.33</td>
+                            <td class="val">0.91</td>
+                            <td class="val">8</td>
+                            <td class="val">40.0%</td>
+                        </tr>
+                        <tr>
+                            <td class="nick">lanes</td>
+                            <td class="val">17</td>
+                            <td class="val">14</td>
+                            <td class="val">5</td>
+                            <td class="val">77.9</td>
+                            <td class="val" style="color:var(--good)">1.21</td>
+                            <td class="val">0.77</td>
+                            <td class="val">7</td>
+                            <td class="val">41.2%</td>
+                        </tr>
+                        <tr>
+                            <td class="nick">aimlord</td>
+                            <td class="val">15</td>
+                            <td class="val">17</td>
+                            <td class="val">1</td>
+                            <td class="val">45.7</td>
+                            <td class="val" style="color:var(--bad)">0.88</td>
+                            <td class="val">0.68</td>
+                            <td class="val">4</td>
+                            <td class="val">26.7%</td>
+                        </tr>
+                        <tr>
+                            <td class="nick">Soon...</td>
+                            <td class="val">16</td>
+                            <td class="val">18</td>
+                            <td class="val">8</td>
+                            <td class="val">93.3</td>
+                            <td class="val" style="color:var(--bad)">0.89</td>
+                            <td class="val">0.73</td>
+                            <td class="val">8</td>
+                            <td class="val">50.0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="team-row-header" style="border-left-color: #555; color: #ccc;">NAVI JUNIOR</div>
+                <table class="stats-table">
+                    <tbody>
+                        <tr>
+                            <td class="nick" style="color:#888">Enemy Player</td>
+                            <td class="val">15</td>
+                            <td class="val">15</td>
+                            <td class="val">5</td>
+                            <td class="val">75.0</td>
+                            <td class="val">1.00</td>
+                            <td class="val">0.70</td>
+                            <td class="val">6</td>
+                            <td class="val">40%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-
-<script>
-    // Функция открытия статистики как на главной
-    function toggleStats(el) { 
-        el.parentElement.classList.toggle('active'); 
-    }
-</script>
 
 </body>
 </html>
