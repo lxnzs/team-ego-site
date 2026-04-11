@@ -9,48 +9,37 @@
     <style>
         :root {
             --primary: #00f2fe;
-            --bg: #05070a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --modal-bg: #0b0e13;
-            --border: rgba(255, 255, 255, 0.1);
-            --bad: #ff4b4b;
+            --bg: #000000; /* Идеально черный фон */
+            --modal-bg: #0a0e14;
+            --border: rgba(255, 255, 255, 0.08);
             --good: #00ff85;
+            --bad: #ff4b4b;
         }
 
+        /* --- ЧИСТКА ОТ СКРОЛЛБАРОВ --- */
+        /* Скрываем скроллбар для всей страницы (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar { width: 0px; background: transparent; display: none; }
+        /* Скрываем скроллбар для Firefox */
+        html { scrollbar-width: none; -ms-overflow-style: none; }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
             background: var(--bg);
-            background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             padding: 40px 20px;
             min-height: 100vh;
+            /* Чтобы radial-gradient не мешал чисто черному, если он есть на главной */
+            background-image: none; 
         }
 
         .container { width: 100%; max-width: 900px; margin: 0 auto; }
 
-        /* --- ШАПКА И АНИМАЦИЯ ЛОГО --- */
+        /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 40px; }
+        .logo-img { width: 180px; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); margin-bottom: 15px; }
         
-        .logo-container {
-            display: inline-block;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-            text-decoration: none;
-        }
-
-        .logo-img { 
-            width: 180px; 
-            height: auto;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
-            transition: filter 0.3s ease;
-            display: block;
-        }
-
-        .logo-container:hover { transform: scale(1.08); }
-        .logo-container:hover .logo-img { filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.8)); }
-
         .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900;
             letter-spacing: 4px; text-transform: uppercase;
@@ -77,38 +66,38 @@
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
         .match-row {
-            background: var(--card-bg); border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
             border-radius: 16px; padding: 20px 25px; margin-bottom: 12px;
             display: flex; align-items: center; justify-content: space-between;
             cursor: pointer; transition: 0.2s;
         }
-        .match-row:hover { background: rgba(255,255,255,0.06); }
+        .match-row:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
 
-        .match-main { display: flex; align-items: center; gap: 20px; }
-        .win-tag { font-family: 'Orbitron'; font-size: 10px; color: var(--good); border: 1px solid var(--good); padding: 4px 8px; border-radius: 4px; }
-        
-        .match-teams { font-family: 'Orbitron'; font-size: 16px; font-weight: 700; text-transform: uppercase; }
+        .match-teams { font-family: 'Orbitron'; font-size: 16px; font-weight: 700; }
         .ego-highlight { color: var(--primary); }
-        .vs-text { color: #555; font-size: 12px; margin: 0 5px; }
+        .vs-text { color: #555; margin: 0 5px; font-size: 12px; }
 
-        .match-result { text-align: right; font-family: 'Orbitron'; }
-        .score { font-size: 18px; font-weight: 900; color: var(--good); display: block; }
-        .map-name { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+        .score { font-family: 'Orbitron'; font-size: 18px; font-weight: 900; color: var(--good); }
+        .score.lost { color: var(--bad); }
 
         /* --- МОДАЛЬНОЕ ОКНО --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: none;
+            background: rgba(0,0,0,0.92); display: none;
             justify-content: center; align-items: center; z-index: 1000;
-            padding: 20px; backdrop-filter: blur(8px);
+            padding: 20px; backdrop-filter: blur(10px);
         }
+        .modal-overlay.active { display: flex; }
 
         .modal-content {
             background: var(--modal-bg); border: 1px solid var(--border);
             width: 100%; max-width: 900px; border-radius: 24px;
             position: relative; animation: modalSlide 0.3s ease-out;
-            max-height: 90vh; overflow-y: auto;
+            max-height: 95vh; overflow-y: auto;
+            scrollbar-width: none; /* Скрываем скролл в Firefox в модалке */
         }
+        /* Скрываем скролл в Chrome в модалке */
+        .modal-content::-webkit-scrollbar { width: 0px; display: none; }
 
         @keyframes modalSlide { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
@@ -124,12 +113,13 @@
             display: flex; align-items: center; justify-content: center; 
             gap: 30px; font-family: 'Orbitron'; margin-bottom: 5px;
         }
-        .modal-team-name { font-size: 18px; font-weight: 700; text-transform: uppercase; }
+        .modal-team-name { font-size: 18px; font-weight: 700; text-transform: uppercase; color: #fff; }
+        .modal-team-name.ego { color: var(--primary); }
         .modal-score { font-size: 42px; font-weight: 900; color: var(--good); }
         
         .modal-map { font-family: 'Orbitron'; font-size: 11px; color: var(--primary); display: block; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* ТАБЛИЦЫ */
+        /* ТАБЛИЦЫ СТАТИСТИКИ */
         .stats-box { padding: 25px; }
         .team-label { 
             background: rgba(255,255,255,0.03); padding: 10px 15px; 
@@ -137,23 +127,29 @@
             border-left: 3px solid var(--primary); margin: 25px 0 12px;
         }
 
-        .stats-scroll { overflow-x: auto; }
+        .stats-scroll { overflow-x: auto; margin-bottom: 10px; scrollbar-width: none; }
+        .stats-scroll::-webkit-scrollbar { display: none; }
+
         .stats-table { width: 100%; border-collapse: collapse; min-width: 750px; }
         .stats-table th { 
             text-align: left; padding: 12px 10px; font-family: 'Orbitron'; 
             font-size: 9px; color: #444; border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
         }
-        .stats-table td { padding: 14px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .stats-table td { padding: 14px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02); color: #fff; /* Вся стата белым */ }
         
-        .nick { font-family: 'Orbitron'; font-weight: 700; color: var(--primary); }
-        .val { font-family: 'Orbitron'; text-align: center; color: #fff; }
-        .kd-good { color: var(--good); }
-        .kd-bad { color: var(--bad); }
+        .nick { font-family: 'Orbitron'; font-weight: 700; color: var(--primary) !important; /* Ники оставляем голубыми */ }
+        .val { font-family: 'Orbitron'; text-align: center; }
 
+        /* Мобилка */
         @media (max-width: 600px) {
+            .logo-img { width: 120px; }
+            .team-title { font-size: 26px; }
             .modal-title-row { gap: 15px; }
             .modal-team-name { font-size: 14px; }
             .modal-score { font-size: 28px; }
+            .match-teams { font-size: 13px; }
+            .modal-content { border-radius: 16px; }
         }
     </style>
 </head>
@@ -161,9 +157,7 @@
 
 <div class="container">
     <header class="header">
-        <a href="/" class="logo-container">
-            <img src="/logo.PNG" class="logo-img">
-        </a>
+        <a href="/"><img src="/logo.PNG" class="logo-img"></a>
         <h1 class="team-title">Match History</h1>
         <a href="/" class="back-btn">← Back to Roster</a>
     </header>
@@ -172,8 +166,8 @@
 
     <div class="match-row" onclick="openModal()">
         <div class="match-main">
-            <div class="win-tag">WIN</div>
-            <div class="match-teams">
+            <div class="win-tag" style="font-family:'Orbitron'; font-size:10px; color:var(--good); border:1px solid var(--good); padding:4px 8px; border-radius:4px;">WIN</div>
+            <div class="match-teams" style="margin-left:15px;">
                 <span class="ego-highlight">TEAM EGO</span>
                 <span class="vs-text">vs</span>
                 <span>NAVI JUNIOR</span>
@@ -181,7 +175,6 @@
         </div>
         <div class="match-result">
             <span class="score">13 : 10</span>
-            <span class="map-name">Ancient</span>
         </div>
     </div>
 </div>
@@ -192,7 +185,7 @@
         
         <div class="modal-header">
             <div class="modal-title-row">
-                <div class="modal-team-name ego-highlight">TEAM EGO</div>
+                <div class="modal-team-name ego">TEAM EGO</div>
                 <div class="modal-score">13:10</div>
                 <div class="modal-team-name">NAVI JUNIOR</div>
             </div>
@@ -217,11 +210,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td class="nick">-himeraa666</td><td class="val">22</td><td class="val">14</td><td class="val">7</td><td class="val">113.3</td><td class="val kd-good">1.57</td><td class="val">1.00</td><td class="val">14</td><td class="val">63.6%</td></tr>
-                        <tr><td class="nick">angeldust</td><td class="val">20</td><td class="val">15</td><td class="val">12</td><td class="val">104.8</td><td class="val kd-good">1.33</td><td class="val">0.91</td><td class="val">8</td><td class="val">40.0%</td></tr>
-                        <tr><td class="nick">lanes</td><td class="val">17</td><td class="val">14</td><td class="val">5</td><td class="val">77.9</td><td class="val kd-good">1.21</td><td class="val">0.77</td><td class="val">7</td><td class="val">41.2%</td></tr>
-                        <tr><td class="nick">aimlord</td><td class="val">15</td><td class="val">17</td><td class="val">1</td><td class="val">45.7</td><td class="val kd-bad">0.88</td><td class="val">0.68</td><td class="val">4</td><td class="val">26.7%</td></tr>
-                        <tr><td class="nick">Soon...</td><td class="val">16</td><td class="val">18</td><td class="val">8</td><td class="val">93.3</td><td class="val kd-bad">0.89</td><td class="val">0.73</td><td class="val">8</td><td class="val">50.0%</td></tr>
+                        <tr>
+                            <td class="nick">-himeraa666</td>
+                            <td class="val">22</td><td class="val">14</td><td class="val">7</td>
+                            <td class="val">113.3</td><td class="val">1.57</td><td class="val">1.00</td><td class="val">14</td><td class="val">63.6%</td>
+                        </tr>
+                        <tr>
+                            <td class="nick">angeldust</td>
+                            <td class="val">20</td><td class="val">15</td><td class="val">12</td>
+                            <td class="val">104.8</td><td class="val">1.33</td><td class="val">0.91</td><td class="val">8</td><td class="val">40.0%</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -230,11 +228,11 @@
             <div class="stats-scroll">
                 <table class="stats-table">
                     <tbody>
-                        <tr><td class="nick" style="color:#777">Enemy Player 1</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
-                        <tr><td class="nick" style="color:#777">Enemy Player 2</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
-                        <tr><td class="nick" style="color:#777">Enemy Player 3</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
-                        <tr><td class="nick" style="color:#777">Enemy Player 4</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
-                        <tr><td class="nick" style="color:#777">Enemy Player 5</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
+                        <tr>
+                            <td class="nick" style="color:#777 !important;">Enemy Player</td>
+                            <td class="val">15</td><td class="val">20</td><td class="val">5</td>
+                            <td class="val">75.0</td><td class="val">0.75</td><td class="val">0.65</td><td class="val">6</td><td class="val">40%</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -244,12 +242,16 @@
 
 <script>
     function openModal() {
-        document.getElementById('matchModal').style.display = 'flex';
+        document.getElementById('matchModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
+
     function closeModal(e) {
-        document.getElementById('matchModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
+        // Простая проверка, чтобы клик по фону или крестику закрывал
+        if (e.target.classList.contains('modal-overlay') || e.target.classList.contains('modal-close')) {
+            document.getElementById('matchModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
     }
 </script>
 
