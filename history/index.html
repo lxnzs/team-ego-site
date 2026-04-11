@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Team Ego | Match History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Ego | Match Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -13,10 +13,9 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
             --good: #00ff85;
-            --bad: #ff4b4b;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background: var(--bg);
@@ -27,198 +26,137 @@
             min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 900px; margin: 0 auto; }
+        .container { width: 100%; max-width: 1000px; margin: 0 auto; }
 
-        /* --- ШАПКА И АНИМАЦИЯ ЛОГО --- */
-        .header { text-align: center; margin-bottom: 40px; }
-        
-        .logo-link { display: inline-block; text-decoration: none; }
+        /* Шапка страницы */
+        .header { text-align: center; margin-bottom: 50px; }
         .logo-img { 
-            width: 180px; 
-            height: auto;
+            width: 150px; 
             filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-            transition: 0.3s ease;
-        }
-        /* Анимация как на главной */
-        .logo-link:hover .logo-img { filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9)); transform: scale(1.05); }
-
-        .team-title {
-            font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
-            letter-spacing: 6px; text-transform: uppercase;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .back-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 10px 25px; background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--primary); border-radius: 30px;
-            color: var(--primary); font-family: 'Orbitron', sans-serif;
-            font-size: 11px; letter-spacing: 2px; text-decoration: none;
-            text-transform: uppercase; transition: 0.3s;
+        .match-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
         }
-        .back-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
 
-        /* --- КАРТОЧКА МАТЧА (РАСКРЫВАЮЩАЯСЯ) --- */
-        .section-label {
-            font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
-            letter-spacing: 3px; margin: 40px 0 20px; display: flex; align-items: center; gap: 15px;
-        }
-        .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
+        .team-name { font-size: 24px; font-weight: 700; text-transform: uppercase; }
+        .ego-name { color: var(--primary); }
+        .final-score { font-size: 48px; font-weight: 900; color: var(--good); }
+        .map-info { font-family: 'Orbitron'; color: var(--primary); letter-spacing: 3px; font-size: 14px; }
 
-        .match-card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 16px; margin-bottom: 15px;
-            transition: 0.3s; overflow: hidden;
+        /* Кнопка назад */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
+            font-family: 'Orbitron';
+            font-size: 10px;
+            letter-spacing: 2px;
+            transition: 0.3s;
         }
-        .match-card:hover { border-color: rgba(255,255,255,0.2); }
+        .back-link:hover { color: var(--primary); }
 
-        .match-header-click {
-            padding: 20px 25px; display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; transition: 0.2s;
+        /* Таблицы статистики */
+        .stats-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
         }
-        .match-header-click:hover { background: rgba(255,255,255,0.02); }
 
-        .m-info-left { display: flex; align-items: center; gap: 15px; }
-        .win-tag { 
-            font-family: 'Orbitron'; font-size: 10px; font-weight: 900; 
-            color: var(--good); padding: 4px 8px; border-radius: 4px;
-            border: 1px solid rgba(0, 255, 133, 0.2); background: rgba(0, 255, 133, 0.02);
+        .team-header {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 20px;
+            font-family: 'Orbitron';
+            font-size: 12px;
+            border-left: 4px solid var(--primary);
+            margin: 20px 0 15px;
         }
+
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
         
-        .match-teams { font-family: 'Orbitron'; font-size: 14px; font-weight: 700; text-transform: uppercase; color: #fff; }
-        .ego-highlight { color: var(--primary); }
-        .vs-text { color: rgba(255,255,255,0.1); margin: 0 5px; font-size: 11px; }
-
-        .match-result { text-align: right; }
-        .score { font-family: 'Orbitron'; font-size: 18px; font-weight: 900; color: var(--good); }
-        .map-name { font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-        /* --- ПАНЕЛЬ СТАТИСТИКИ (ПЛАВНАЯ) --- */
-        .stats-drawer {
-            max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(0,0,0,0.2); border-top: 1px solid transparent;
-        }
-        .match-card.active .stats-drawer { max-height: 2000px; border-top-color: var(--border); }
-
-        .stats-container { padding: 25px; overflow-x: auto; scrollbar-width: none; }
-        .stats-container::-webkit-scrollbar { display: none; }
-
-        .team-banner { 
-            background: rgba(255,255,255,0.03); padding: 10px 15px; 
-            font-family: 'Orbitron'; font-size: 11px; margin: 15px 0;
-            border-left: 3px solid var(--primary); color: #fff; letter-spacing: 1px;
+        th {
+            text-align: left;
+            padding: 12px;
+            font-family: 'Orbitron';
+            font-size: 10px;
+            color: #444;
+            border-bottom: 1px solid var(--border);
         }
 
-        .stats-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-        .stats-table th { 
-            font-family: 'Orbitron'; font-size: 9px; color: #444; 
-            text-align: left; padding: 10px; border-bottom: 1px solid var(--border);
-            text-transform: uppercase;
+        td {
+            padding: 15px 12px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            color: #fff !important; /* Вся статистика белая */
         }
-        .stats-table td { 
-            padding: 12px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02);
-            color: #fff !important; /* ВСЯ СТАТИСТИКА БЕЛАЯ */
-        }
-        
-        .nick { font-family: 'Orbitron'; font-weight: 700; color: var(--primary) !important; }
-        .val { font-family: 'Orbitron'; text-align: center; }
 
-        /* Мобилка */
-        @media (max-width: 600px) {
-            .logo-img { width: 110px; }
-            .team-title { font-size: 26px; }
-            .match-header-click { flex-direction: column; gap: 10px; text-align: center; padding: 15px; }
-            .m-info-left { flex-direction: column; gap: 8px; }
-            .match-result { text-align: center; }
-            .stats-container { padding: 10px; }
-        }
+        .player-nick { font-family: 'Orbitron'; font-weight: 700; color: var(--primary) !important; }
+        .val { text-align: center; font-family: 'Orbitron'; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header class="header">
-        <a href="/" class="logo-link">
-            <img src="/logo.PNG" class="logo-img">
-        </a>
-        <h1 class="team-title">Match History</h1>
-        <a href="/" class="back-btn">← Back to Roster</a>
-    </header>
+    <div class="header">
+        <img src="/logo.PNG" class="logo-img">
+        <div class="match-title">
+            <div class="team-name ego-name">Team Ego</div>
+            <div class="final-score">13 : 10</div>
+            <div class="team-name">Navi Junior</div>
+        </div>
+        <div class="map-info">ANCIENT</div>
+        <a href="index.html" class="back-link">← BACK TO HISTORY</a>
+    </div>
 
-    <div class="section-label">LATEST MATCH</div>
-
-    <div class="match-card">
-        <div class="match-header-click" onclick="toggleStats(this)">
-            <div class="m-info-left">
-                <div class="win-tag">WIN</div>
-                <div class="match-teams">
-                    <span class="ego-highlight">TEAM EGO</span>
-                    <span class="vs-text">vs</span>
-                    <span style="color:#666">NAVI JUNIOR</span>
-                </div>
-            </div>
-            <div class="match-result">
-                <span class="score">13 : 10</span>
-                <div class="map-name">Ancient</div>
-            </div>
+    <div class="stats-section">
+        <div class="team-header">TEAM EGO</div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>PLAYER</th>
+                        <th class="val">K</th>
+                        <th class="val">D</th>
+                        <th class="val">A</th>
+                        <th class="val">ADR</th>
+                        <th class="val">K/D</th>
+                        <th class="val">HS%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="player-nick">-himeraa666</td><td class="val">22</td><td class="val">14</td><td class="val">7</td><td class="val">113.3</td><td class="val">1.57</td><td class="val">63.6%</td></tr>
+                    <tr><td class="player-nick">angeldust</td><td class="val">20</td><td class="val">15</td><td class="val">12</td><td class="val">104.8</td><td class="val">1.33</td><td class="val">40.0%</td></tr>
+                    <tr><td class="player-nick">lanes</td><td class="val">17</td><td class="val">14</td><td class="val">5</td><td class="val">77.9</td><td class="val">1.21</td><td class="val">41.2%</td></tr>
+                    <tr><td class="player-nick">aimlord</td><td class="val">15</td><td class="val">17</td><td class="val">1</td><td class="val">45.7</td><td class="val">0.88</td><td class="val">26.7%</td></tr>
+                    <tr><td class="player-nick">Soon...</td><td class="val">16</td><td class="val">18</td><td class="val">8</td><td class="val">93.3</td><td class="val">0.89</td><td class="val">50.0%</td></tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="stats-drawer">
-            <div class="stats-container">
-                <div class="team-banner">TEAM EGO</div>
-                <table class="stats-table">
-                    <thead>
-                        <tr>
-                            <th>PLAYER</th>
-                            <th style="text-align:center">K</th>
-                            <th style="text-align:center">D</th>
-                            <th style="text-align:center">A</th>
-                            <th style="text-align:center">ADR</th>
-                            <th style="text-align:center">K/D</th>
-                            <th style="text-align:center">K/R</th>
-                            <th style="text-align:center">HS</th>
-                            <th style="text-align:center">HS%</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="nick">himeraa</td>
-                            <td class="val">22</td><td class="val">14</td><td class="val">7</td>
-                            <td class="val">95.2</td><td class="val">1.57</td><td class="val">1.00</td><td class="val">14</td><td class="val">45%</td>
-                        </tr>
-                        <tr>
-                            <td class="nick">angeldust</td>
-                            <td class="val">19</td><td class="val">15</td><td class="val">12</td>
-                            <td class="val">88.0</td><td class="val">1.27</td>
-                            <td class="val">0.91</td><td class="val">8</td><td class="val">52%</td>
-                        </tr>
-                        </tbody>
-                </table>
-
-                <div class="team-banner" style="border-left-color: #444;">NAVI JUNIOR</div>
-                <table class="stats-table">
-                    <tbody>
-                        <tr>
-                            <td class="nick" style="color:#777 !important;">Enemy Player</td>
-                            <td class="val">15</td><td class="val">15</td><td class="val">5</td>
-                            <td class="val">75.0</td><td class="val">1.00</td>
-                            <td class="val">0.70</td><td class="val">6</td><td class="val">40%</td>
-                        </tr>
-                        </tbody>
-                </table>
-            </div>
+        <div class="team-header" style="border-left-color: #555;">NAVI JUNIOR</div>
+        <div class="table-wrapper">
+            <table>
+                <tbody>
+                    <tr><td class="player-nick" style="color:#777 !important;">Enemy Player 1</td><td class="val">18</td><td class="val">18</td><td class="val">4</td><td class="val">87.9</td><td class="val">1.00</td><td class="val">40%</td></tr>
+                    <tr><td class="player-nick" style="color:#777 !important;">Enemy Player 2</td><td class="val">15</td><td class="val">19</td><td class="val">3</td><td class="val">72.4</td><td class="val">0.79</td><td class="val">38%</td></tr>
+                    <tr><td class="player-nick" style="color:#777 !important;">Enemy Player 3</td><td class="val">14</td><td class="val">20</td><td class="val">5</td><td class="val">65.1</td><td class="val">0.70</td><td class="val">45%</td></tr>
+                    <tr><td class="player-nick" style="color:#777 !important;">Enemy Player 4</td><td class="val">12</td><td class="val">21</td><td class="val">2</td><td class="val">58.0</td><td class="val">0.57</td><td class="val">30%</td></tr>
+                    <tr><td class="player-nick" style="color:#777 !important;">Enemy Player 5</td><td class="val">10</td><td class="val">22</td><td class="val">6</td><td class="val">50.2</td><td class="val">0.45</td><td class="val">25%</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
-<script>
-    // Функция плавного раскрытия
-    function toggleStats(el) { 
-        el.parentElement.classList.toggle('active'); 
-    }
-</script>
 
 </body>
 </html>
