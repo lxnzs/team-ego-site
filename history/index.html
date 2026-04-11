@@ -86,7 +86,6 @@
 
         .match-main { display: flex; align-items: center; gap: 20px; }
         .win-tag { font-family: 'Orbitron'; font-size: 10px; color: var(--good); border: 1px solid var(--good); padding: 4px 8px; border-radius: 4px; }
-        .loss-tag { font-family: 'Orbitron'; font-size: 10px; color: var(--bad); border: 1px solid var(--bad); padding: 4px 8px; border-radius: 4px; }
         
         .match-teams { font-family: 'Orbitron'; font-size: 16px; font-weight: 700; text-transform: uppercase; }
         .ego-highlight { color: var(--primary); }
@@ -94,7 +93,6 @@
 
         .match-result { text-align: right; font-family: 'Orbitron'; }
         .score { font-size: 18px; font-weight: 900; color: var(--good); display: block; }
-        .score.lost { color: var(--bad); }
         .map-name { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
 
         /* --- МОДАЛЬНОЕ ОКНО --- */
@@ -109,7 +107,7 @@
             background: var(--modal-bg); border: 1px solid var(--border);
             width: 100%; max-width: 900px; border-radius: 24px;
             position: relative; animation: modalSlide 0.3s ease-out;
-            max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-height: 90vh; overflow-y: auto;
         }
 
         @keyframes modalSlide { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -121,42 +119,41 @@
         .modal-close:hover { color: #fff; }
 
         .modal-header { padding: 45px 20px 25px; text-align: center; border-bottom: 1px solid var(--border); }
-        .modal-score { font-family: 'Orbitron'; font-size: 42px; font-weight: 900; color: var(--good); line-height: 1; margin-bottom: 10px; }
-        .modal-teams { font-family: 'Orbitron'; font-size: 14px; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
-        .modal-teams b { color: var(--primary); }
-        .modal-map { font-family: 'Orbitron'; font-size: 11px; color: var(--primary); margin-top: 10px; display: block; letter-spacing: 2px; }
+        
+        .modal-title-row { 
+            display: flex; align-items: center; justify-content: center; 
+            gap: 30px; font-family: 'Orbitron'; margin-bottom: 5px;
+        }
+        .modal-team-name { font-size: 18px; font-weight: 700; text-transform: uppercase; }
+        .modal-score { font-size: 42px; font-weight: 900; color: var(--good); }
+        
+        .modal-map { font-family: 'Orbitron'; font-size: 11px; color: var(--primary); display: block; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* ТАБЛИЦЫ СТАТИСТИКИ */
+        /* ТАБЛИЦЫ */
         .stats-box { padding: 25px; }
         .team-label { 
             background: rgba(255,255,255,0.03); padding: 10px 15px; 
             font-family: 'Orbitron'; font-size: 11px; color: #fff; 
             border-left: 3px solid var(--primary); margin: 25px 0 12px;
-            letter-spacing: 1px;
         }
 
-        .stats-scroll { overflow-x: auto; margin-bottom: 10px; }
+        .stats-scroll { overflow-x: auto; }
         .stats-table { width: 100%; border-collapse: collapse; min-width: 750px; }
-        
         .stats-table th { 
             text-align: left; padding: 12px 10px; font-family: 'Orbitron'; 
             font-size: 9px; color: #444; border-bottom: 1px solid var(--border);
-            text-transform: uppercase;
         }
-        
         .stats-table td { padding: 14px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02); }
         
         .nick { font-family: 'Orbitron'; font-weight: 700; color: var(--primary); }
         .val { font-family: 'Orbitron'; text-align: center; color: #fff; }
-        .kd-good { color: var(--good) !important; }
-        .kd-bad { color: var(--bad) !important; }
+        .kd-good { color: var(--good); }
+        .kd-bad { color: var(--bad); }
 
-        /* Мобилка */
         @media (max-width: 600px) {
-            .match-teams { font-size: 13px; }
-            .score { font-size: 16px; }
-            .modal-score { font-size: 32px; }
-            .modal-content { border-radius: 16px; }
+            .modal-title-row { gap: 15px; }
+            .modal-team-name { font-size: 14px; }
+            .modal-score { font-size: 28px; }
         }
     </style>
 </head>
@@ -165,7 +162,7 @@
 <div class="container">
     <header class="header">
         <a href="/" class="logo-container">
-            <img src="/logo.PNG" class="logo-img" alt="Logo">
+            <img src="/logo.PNG" class="logo-img">
         </a>
         <h1 class="team-title">Match History</h1>
         <a href="/" class="back-btn">← Back to Roster</a>
@@ -187,21 +184,6 @@
             <span class="map-name">Ancient</span>
         </div>
     </div>
-
-    <div class="match-row">
-        <div class="match-main">
-            <div class="loss-tag">LOSS</div>
-            <div class="match-teams">
-                <span class="ego-highlight">TEAM EGO</span>
-                <span class="vs-text">vs</span>
-                <span>VITALITY</span>
-            </div>
-        </div>
-        <div class="match-result">
-            <span class="score lost">08 : 13</span>
-            <span class="map-name">Anubis</span>
-        </div>
-    </div>
 </div>
 
 <div class="modal-overlay" id="matchModal" onclick="closeModal(event)">
@@ -209,8 +191,11 @@
         <span class="modal-close" onclick="closeModal(event)">×</span>
         
         <div class="modal-header">
-            <div class="modal-score">13:10</div>
-            <div class="modal-teams"><b>TEAM EGO</b> vs NAVI JUNIOR</div>
+            <div class="modal-title-row">
+                <div class="modal-team-name ego-highlight">TEAM EGO</div>
+                <div class="modal-score">13:10</div>
+                <div class="modal-team-name">NAVI JUNIOR</div>
+            </div>
             <span class="modal-map">ANCIENT</span>
         </div>
 
@@ -232,28 +217,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="nick">-himeraa666</td>
-                            <td class="val">22</td>
-                            <td class="val">14</td>
-                            <td class="val">7</td>
-                            <td class="val">113.3</td>
-                            <td class="val kd-good">1.57</td>
-                            <td class="val">1.00</td>
-                            <td class="val">14</td>
-                            <td class="val">63.6%</td>
-                        </tr>
-                        <tr>
-                            <td class="nick">angeldust</td>
-                            <td class="val">20</td>
-                            <td class="val">15</td>
-                            <td class="val">12</td>
-                            <td class="val">104.8</td>
-                            <td class="val kd-good">1.33</td>
-                            <td class="val">0.91</td>
-                            <td class="val">8</td>
-                            <td class="val">40.0%</td>
-                        </tr>
+                        <tr><td class="nick">-himeraa666</td><td class="val">22</td><td class="val">14</td><td class="val">7</td><td class="val">113.3</td><td class="val kd-good">1.57</td><td class="val">1.00</td><td class="val">14</td><td class="val">63.6%</td></tr>
+                        <tr><td class="nick">angeldust</td><td class="val">20</td><td class="val">15</td><td class="val">12</td><td class="val">104.8</td><td class="val kd-good">1.33</td><td class="val">0.91</td><td class="val">8</td><td class="val">40.0%</td></tr>
+                        <tr><td class="nick">lanes</td><td class="val">17</td><td class="val">14</td><td class="val">5</td><td class="val">77.9</td><td class="val kd-good">1.21</td><td class="val">0.77</td><td class="val">7</td><td class="val">41.2%</td></tr>
+                        <tr><td class="nick">aimlord</td><td class="val">15</td><td class="val">17</td><td class="val">1</td><td class="val">45.7</td><td class="val kd-bad">0.88</td><td class="val">0.68</td><td class="val">4</td><td class="val">26.7%</td></tr>
+                        <tr><td class="nick">Soon...</td><td class="val">16</td><td class="val">18</td><td class="val">8</td><td class="val">93.3</td><td class="val kd-bad">0.89</td><td class="val">0.73</td><td class="val">8</td><td class="val">50.0%</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -262,17 +230,11 @@
             <div class="stats-scroll">
                 <table class="stats-table">
                     <tbody>
-                        <tr>
-                            <td class="nick" style="color:#777">Enemy Player</td>
-                            <td class="val">15</td>
-                            <td class="val">20</td>
-                            <td class="val">5</td>
-                            <td class="val">75.0</td>
-                            <td class="val kd-bad">0.75</td>
-                            <td class="val">0.65</td>
-                            <td class="val">6</td>
-                            <td class="val">40%</td>
-                        </tr>
+                        <tr><td class="nick" style="color:#777">Enemy Player 1</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
+                        <tr><td class="nick" style="color:#777">Enemy Player 2</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
+                        <tr><td class="nick" style="color:#777">Enemy Player 3</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
+                        <tr><td class="nick" style="color:#777">Enemy Player 4</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
+                        <tr><td class="nick" style="color:#777">Enemy Player 5</td><td class="val">0</td><td class="val">0</td><td class="val">0</td><td class="val">0.0</td><td class="val">0.00</td><td class="val">0.00</td><td class="val">0</td><td class="val">0%</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -285,7 +247,6 @@
         document.getElementById('matchModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
-
     function closeModal(e) {
         document.getElementById('matchModal').style.display = 'none';
         document.body.style.overflow = 'auto';
