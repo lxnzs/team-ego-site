@@ -23,36 +23,69 @@
             background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
-            padding: 20px;
+            padding: 40px 20px;
             min-height: 100vh;
         }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        .header { text-align: center; margin-bottom: 30px; }
+        /* --- ШАПКА КАК В ГЛАВНОМ МЕНЮ --- */
+        .header { text-align: center; margin-bottom: 40px; }
         
         .logo-img { 
-            width: 140px; 
+            width: 180px; /* Размер как в главном меню */
+            height: auto;
             filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-            margin-bottom: 10px; 
-            transition: 0.3s ease;
+            margin-bottom: 15px; 
+            transition: 0.2s ease;
             cursor: pointer;
         }
+        .logo-img:hover {
+            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
+            transform: scale(1.05);
+        }
 
+        /* --- НАВИГАЦИЯ НАЗАД --- */
+        .back-nav { margin-bottom: 30px; text-align: left; }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 25px;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: #888;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+        .back-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* --- ЗАГОЛОВОК СЕКЦИИ --- */
         .section-label {
-            font-family: 'Orbitron', sans-serif; font-size: 12px; color: var(--primary);
-            letter-spacing: 3px; margin: 20px 0 20px;
-            display: flex; align-items: center; gap: 10px;
+            font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
+            letter-spacing: 3px; margin: 30px 0 20px;
+            display: flex; align-items: center; gap: 15px;
             text-transform: uppercase;
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
+        /* --- КАРТОЧКА МАТЧА (ПК ВЕРСИЯ) --- */
         .match-item {
             background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 12px;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -61,20 +94,25 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .match-main { display: flex; align-items: center; gap: 20px; flex: 1; }
+        .match-item:hover {
+            border-color: rgba(0, 242, 254, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .match-main { display: flex; align-items: center; gap: 25px; flex: 1; }
 
         .match-status {
             font-family: 'Orbitron', sans-serif;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 900;
-            width: 55px;
+            width: 65px;
             text-align: center;
-            padding: 4px 0;
-            border-radius: 5px;
+            padding: 5px 0;
+            border-radius: 6px;
             letter-spacing: 1px;
             flex-shrink: 0;
         }
@@ -83,52 +121,59 @@
 
         .vs-box { font-family: 'Orbitron', sans-serif; display: flex; align-items: center; flex-wrap: wrap; }
         
-        .team-ego-name { color: var(--primary); font-weight: 800; font-size: 15px; letter-spacing: 1px; }
-        .vs-text { color: rgba(255,255,255,0.2); font-size: 10px; margin: 0 10px; }
-        .opponent-name { color: #fff; font-weight: 700; font-size: 15px; opacity: 0.9; }
+        .team-ego-name { color: var(--primary); font-weight: 800; font-size: 17px; letter-spacing: 1px; }
+        .vs-text { color: rgba(255,255,255,0.2); font-size: 11px; margin: 0 12px; }
+        .opponent-name { color: #fff; font-weight: 700; font-size: 16px; opacity: 0.9; }
 
-        .match-details { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; margin-left: 10px; }
+        .match-details { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; margin-left: 15px; }
 
         .match-score { 
             font-family: 'Orbitron', sans-serif; 
-            font-size: 18px; 
+            font-size: 20px; 
             font-weight: 900;
-        }
-        .score-win { color: var(--good); }
-        .score-loss { color: var(--bad); }
-
-        .match-map {
-            font-size: 8px;
-            color: rgba(255,255,255,0.3);
-            text-transform: uppercase;
             letter-spacing: 1px;
         }
+        .score-win { color: var(--good); text-shadow: 0 0 10px rgba(0, 255, 133, 0.2); }
+        .score-loss { color: var(--bad); text-shadow: 0 0 10px rgba(255, 75, 75, 0.2); }
 
-        .back-nav { margin-bottom: 20px; text-align: left; }
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: #888;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 8px;
-            text-decoration: none;
-            transition: 0.3s;
+        .match-map {
+            font-size: 9px;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* АДАПТАЦИЯ ПОД МОБИЛКИ */
+        /* --- АДАПТАЦИЯ ПОД МОБИЛКИ --- */
         @media (max-width: 600px) {
-            body { padding: 15px; }
+            body { padding: 20px 15px; }
+            .header { margin-bottom: 30px; }
+            
+            /* Уменьшаем лого на телефоне, как в главном меню */
+            .logo-img { 
+                width: 110px; 
+                margin-bottom: 10px;
+            }
+
+            .back-nav { margin-bottom: 20px; }
+            .back-btn { padding: 8px 18px; font-size: 9px; letter-spacing: 1px; }
+
+            .section-label { font-size: 12px; letter-spacing: 2px; margin: 20px 0 15px; gap: 10px; }
+
+            /* Карточка-стек для телефона (исправленная центровка) */
             .match-item { 
                 flex-direction: column; 
                 align-items: flex-start; 
                 gap: 15px;
                 padding: 15px;
+                border-radius: 15px;
             }
-            .match-main { width: 100%; justify-content: flex-start; }
+            .match-main { width: 100%; justify-content: flex-start; gap: 15px; }
+            
+            .vs-box { flex-direction: row; align-items: center; }
+            .team-ego-name { font-size: 14px; }
+            .opponent-name { font-size: 13px; }
+            .vs-text { margin: 0 8px; font-size: 9px; }
+
             .match-details { 
                 width: 100%; 
                 flex-direction: row; 
@@ -138,8 +183,9 @@
                 padding-top: 10px;
                 border-top: 1px solid var(--border);
             }
-            .vs-box { flex-direction: row; align-items: center; }
-            .team-ego-name, .opponent-name { font-size: 13px; }
+            
+            .match-score { font-size: 16px; letter-spacing: 1px; }
+            .match-map { font-size: 8px; letter-spacing: 1px; }
         }
     </style>
 </head>
