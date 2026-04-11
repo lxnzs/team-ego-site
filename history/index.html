@@ -16,6 +16,9 @@
             --good: #00ff85;
         }
 
+        /* Прячем скроллбар в модалке для чистоты */
+        .modal-window::-webkit-scrollbar { display: none; }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
@@ -23,18 +26,17 @@
             background-image: radial-gradient(circle at 50% -20%, #1e2a3a 0%, transparent 50%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
-            padding: 40px 20px;
+            padding: 40px 20px; /* Должно совпадать с главным меню */
             min-height: 100vh;
         }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        /* --- ШАПКА (КОПИЯ С ГЛАВНОГО МЕНЮ) --- */
+        /* --- ШАПКА (ТОЧНАЯ КОПИЯ ГЛАВНОГО МЕНЮ ДЛЯ ЦЕНТРОВКИ) --- */
         .header { text-align: center; margin-bottom: 40px; }
         
-        /* Ссылка-обертка для логотипа */
-        .logo-link { display: inline-block; text-decoration: none; }
-
+        .logo-link { display: inline-block; text-decoration: none; line-height: 0; }
+        
         .logo-img { 
             width: 180px; 
             height: auto;
@@ -42,10 +44,9 @@
             margin-bottom: 15px; 
             transition: 0.2s ease;
             cursor: pointer;
-            display: block; /* Убирает лишние зазоры снизу */
         }
-
-        /* Эффекты как на главном меню */
+        
+        /* Эффекты как на главной */
         .logo-img:hover {
             filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
             transform: scale(1.05);
@@ -60,81 +61,91 @@
             margin-bottom: 25px;
         }
 
-        /* Кнопка назад */
+        /* Кнопка Back */
+        .back-nav { display: flex; justify-content: center; margin-bottom: 20px; }
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 25px;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--primary);
-            border-radius: 30px;
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 25px; background: rgba(0, 242, 254, 0.05);
+            border: 1px solid var(--primary); border-radius: 30px;
+            color: var(--primary); font-family: 'Orbitron', sans-serif;
+            font-size: 11px; letter-spacing: 2px; text-decoration: none;
+            text-transform: uppercase; transition: 0.3s;
         }
-        .back-btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-        }
+        .back-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
 
-        /* --- СТИЛЬ МОДАЛКИ (ОБНОВЛЕННЫЙ ЗАГОЛОВОК) --- */
+        /* --- МАТЧИ --- */
+        .section-label {
+            font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
+            letter-spacing: 3px; margin: 40px 0 20px; display: flex; align-items: center; gap: 15px;
+        }
+        .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
+
+        .match-item {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 20px 25px; margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: 0.3s;
+        }
+        .match-item:hover { border-color: var(--primary); transform: translateX(5px); background: rgba(255,255,255,0.05); }
+
+        .m-info-left { display: flex; align-items: center; gap: 15px; }
+        .m-badge { 
+            font-family: 'Orbitron'; font-size: 10px; font-weight: 900; 
+            padding: 4px 10px; border-radius: 4px; border: 1px solid transparent;
+        }
+        .win { color: var(--good); border-color: rgba(0, 255, 133, 0.3); background: rgba(0, 255, 133, 0.05); }
+        .loss { color: var(--bad); border-color: rgba(255, 75, 75, 0.3); background: rgba(255, 75, 75, 0.05); }
+
+        /* --- МОДАЛКА --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px);
+            background: rgba(5, 7, 10, 0.85); backdrop-filter: blur(15px);
             display: none; align-items: center; justify-content: center; z-index: 1000;
+            padding: 20px;
         }
         .modal-overlay.active { display: flex; }
 
         .modal-window {
-            background: #0a0e14; width: 95%; max-width: 900px;
-            border: 1px solid var(--border); border-radius: 20px;
+            background: #0a0e14; width: 100%; max-width: 850px;
+            border: 1px solid var(--border); border-radius: 24px;
             position: relative; max-height: 90vh; overflow-y: auto;
-            animation: fadeIn 0.3s ease;
+            animation: modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .modal-header { padding: 35px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-        
-        /* Стили заголовка в матче */
-        .m-score-main { font-family: 'Orbitron', sans-serif; font-size: 42px; font-weight: 900; line-height: 1; margin-bottom: 10px; }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 30px; color: #444; cursor: pointer; transition: 0.2s; }
+        .close-btn:hover { color: var(--bad); }
+
+        .modal-header { padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--border); }
+        .m-score-main { font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 900; line-height: 1; margin-bottom: 10px; }
         .m-teams-row { font-family: 'Orbitron', sans-serif; font-size: 16px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
         .m-teams-row span { color: var(--primary); }
         .m-map-name { font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--primary); margin-top: 15px; letter-spacing: 4px; opacity: 0.8; }
 
-        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 24px; color: #444; cursor: pointer; }
-
-        .modal-body { padding: 20px; }
-        .team-block-title { background: rgba(255,255,255,0.03); padding: 10px 15px; font-family: 'Orbitron'; font-size: 12px; margin: 15px 0; border-left: 3px solid var(--primary); }
-
-        .stats-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .stats-table th { color: #555; font-family: 'Orbitron'; font-size: 10px; padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
-        .stats-table td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.02); }
-
-        /* МАТЧИ */
-        .section-label { font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary); letter-spacing: 3px; margin: 40px 0 20px; display: flex; align-items: center; gap: 15px; }
-        .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
-
-        .match-item {
-            background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 12px;
-            display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: 0.2s;
+        .modal-body { padding: 30px; }
+        .team-title-stats { 
+            background: rgba(255,255,255,0.03); padding: 10px 15px; 
+            font-family: 'Orbitron'; font-size: 12px; margin: 20px 0 10px;
+            border-left: 3px solid var(--primary);
         }
-        .match-item:hover { border-color: var(--primary); background: rgba(255,255,255,0.05); }
 
+        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .stats-table th { font-family: 'Orbitron'; font-size: 10px; color: #444; text-align: left; padding: 10px; border-bottom: 1px solid var(--border); }
+        .stats-table td { padding: 12px 10px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+
+        /* Мобилка */
         @media (max-width: 600px) {
-            .logo-img { width: 110px; }
+            .logo-img { width: 120px; }
             .team-title { font-size: 26px; letter-spacing: 3px; }
-            .m-score-main { font-size: 32px; }
-            .match-item { flex-direction: column; gap: 10px; text-align: center; }
+            .match-item { flex-direction: column; gap: 15px; text-align: center; }
+            .m-score-main { font-size: 36px; }
+            .m-teams-row { font-size: 13px; }
+            .modal-body { padding: 15px; }
+            .stats-table { font-size: 11px; }
         }
     </style>
 </head>
@@ -146,91 +157,109 @@
             <img src="/logo.PNG" class="logo-img">
         </a>
         <h1 class="team-title">Team Ego</h1>
-        <a href="/" class="back-btn">← Back to Roster</a>
+        
+        <div class="back-nav">
+            <a href="/" class="back-btn">← Back to Roster</a>
+        </div>
     </header>
 
     <div class="section-label">MATCH HISTORY</div>
 
-    <div class="match-item" onclick="openMatch('NAVI JUNIOR', '13:10', 'Ancient', true)">
-        <div style="display:flex; align-items:center; gap:15px;">
-            <div style="color:var(--good); font-family:'Orbitron'; font-weight:900; font-size:10px; border:1px solid var(--good); padding:3px 8px; border-radius:4px;">WIN</div>
-            <div style="font-family:'Orbitron'; font-size:14px;">TEAM EGO <span style="color:rgba(255,255,255,0.2)">vs</span> NAVI JUNIOR</div>
+    <div class="match-item" onclick="openModal('NAVI JUNIOR', '13:10', 'Ancient', true)">
+        <div class="m-info-left">
+            <div class="m-badge win">WIN</div>
+            <div style="font-family:'Orbitron'; font-size:14px;">TEAM EGO <small style="color:#333">VS</small> NAVI JUNIOR</div>
         </div>
         <div style="text-align:right">
-            <div style="font-family:'Orbitron'; font-weight:900; color:var(--good)">13:10</div>
+            <div style="font-family:'Orbitron'; color:var(--good); font-weight:900;">13:10</div>
             <div style="font-size:9px; opacity:0.3; text-transform:uppercase;">Ancient</div>
+        </div>
+    </div>
+
+    <div class="match-item" onclick="openModal('VITALITY', '08:13', 'Anubis', false)">
+        <div class="m-info-left">
+            <div class="m-badge loss">LOSS</div>
+            <div style="font-family:'Orbitron'; font-size:14px;">TEAM EGO <small style="color:#333">VS</small> VITALITY</div>
+        </div>
+        <div style="text-align:right">
+            <div style="font-family:'Orbitron'; color:var(--bad); font-weight:900;">08:13</div>
+            <div style="font-size:9px; opacity:0.3; text-transform:uppercase;">Anubis</div>
         </div>
     </div>
 </div>
 
-<div class="modal-overlay" id="modal">
+<div class="modal-overlay" id="matchModal">
     <div class="modal-window">
-        <span class="close-btn" onclick="closeMatch()">&times;</span>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        
         <div class="modal-header">
-            <div id="mScore" class="m-score-main">00 : 00</div>
+            <div id="mScore" class="m-score-main">00:00</div>
             <div class="m-teams-row">
-                <span>TEAM EGO</span> <small style="margin:0 10px; opacity:0.3">VS</small> <b id="mOpponent">ENEMY</b>
+                <span>TEAM EGO</span> <small style="margin:0 10px; opacity:0.2">VS</small> <b id="mOpponent">ENEMY</b>
             </div>
-            <div id="mMap" class="m-map-name">MAP</div>
+            <div id="mMap" class="m-map-name">MAP NAME</div>
         </div>
+
         <div class="modal-body">
-            <div class="team-block-title">TEAM EGO</div>
+            <div class="team-title-stats">TEAM EGO</div>
             <table class="stats-table">
                 <thead><tr><th>PLAYER</th><th>K</th><th>D</th><th>ADR</th><th>HS%</th></tr></thead>
-                <tbody id="egoTable"></tbody>
+                <tbody id="egoStats"></tbody>
             </table>
-            <div class="team-block-title" id="oppTitle" style="border-left-color:#444;">OPPONENT</div>
+
+            <div class="team-title-stats" id="oppTitle" style="border-left-color: #444;">OPPONENT</div>
             <table class="stats-table">
                 <thead><tr><th>PLAYER</th><th>K</th><th>D</th><th>ADR</th><th>HS%</th></tr></thead>
-                <tbody id="oppTable"></tbody>
+                <tbody id="oppStats"></tbody>
             </table>
         </div>
     </div>
 </div>
 
 <script>
-    function openMatch(opp, score, map, isWin) {
+    function openModal(opp, score, map, isWin) {
         document.getElementById('mScore').innerText = score;
         document.getElementById('mScore').style.color = isWin ? 'var(--good)' : 'var(--bad)';
         document.getElementById('mOpponent').innerText = opp;
         document.getElementById('oppTitle').innerText = opp;
         document.getElementById('mMap').innerText = map.toUpperCase();
 
-        const egoPlayers = [
-            ["himeraa", 22, 14, 95.2, "45%"],
-            ["angeldust", 19, 15, 88.0, "52%"],
-            ["lanes", 14, 18, 72.4, "38%"],
-            ["aimlord", 11, 20, 65.1, "60%"],
-            ["soon...", 0, 0, 0.0, "0%"]
+        const myPlayers = [
+            ["-himeraa666", 22, 14, "98.2", "45%"],
+            ["angeldust", 19, 15, "88.0", "52%"],
+            ["lanes", 14, 18, "72.4", "38%"],
+            ["aimlord", 11, 20, "65.1", "60%"],
+            ["SOON...", 0, 0, "0.0", "0%"]
         ];
 
-        renderTable('egoTable', egoPlayers);
-        renderTable('oppTable', egoPlayers.map(p => ["Enemy", 15, 15, 75.0, "40%"]));
+        fillTable('egoStats', myPlayers);
+        fillTable('oppStats', myPlayers.map(p => ["EnemyPlayer", 15, 15, "75.0", "40%"]));
 
-        document.getElementById('modal').classList.add('active');
+        document.getElementById('matchModal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
-    function renderTable(id, data) {
-        const t = document.getElementById(id);
-        t.innerHTML = data.map(p => `
+    function fillTable(id, data) {
+        const tb = document.getElementById(id);
+        tb.innerHTML = data.map(p => `
             <tr>
                 <td style="font-weight:700">${p[0]}</td>
                 <td style="font-family:'Orbitron'">${p[1]}</td>
                 <td style="font-family:'Orbitron'">${p[2]}</td>
-                <td>${p[3]}</td>
-                <td>${p[4]}</td>
+                <td style="color:#777">${p[3]}</td>
+                <td style="color:#777">${p[4]}</td>
             </tr>
         `).join('');
     }
 
-    function closeMatch() {
-        document.getElementById('modal').classList.remove('active');
+    function closeModal() {
+        document.getElementById('matchModal').classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('modal')) closeMatch();
+    // Закрытие по клику на фон
+    window.onclick = function(e) {
+        if(e.target == document.getElementById('matchModal')) closeModal();
     }
 </script>
 
