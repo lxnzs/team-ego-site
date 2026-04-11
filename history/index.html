@@ -27,165 +27,105 @@
             min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 800px; margin: 0 auto; }
+        .container { width: 100%; max-width: 900px; margin: 0 auto; }
 
-        /* --- ШАПКА КАК В ГЛАВНОМ МЕНЮ --- */
+        /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 40px; }
-        
-        .logo-img { 
-            width: 180px; /* Размер как в главном меню */
-            height: auto;
-            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-            margin-bottom: 15px; 
-            transition: 0.2s ease;
-            cursor: pointer;
-        }
-        .logo-img:hover {
-            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
-            transform: scale(1.05);
-        }
+        .logo-img { width: 180px; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); cursor: pointer; transition: 0.2s; }
+        .logo-img:hover { transform: scale(1.05); }
 
-        /* --- НАВИГАЦИЯ НАЗАД --- */
-        .back-nav { margin-bottom: 30px; text-align: left; }
+        .back-nav { margin-bottom: 30px; }
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 25px;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            color: #888;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            display: inline-flex; align-items: center; padding: 10px 25px;
+            background: rgba(0, 242, 254, 0.05); border: 1px solid var(--border);
+            border-radius: 30px; color: #888; font-family: 'Orbitron', sans-serif;
+            font-size: 10px; letter-spacing: 2px; text-decoration: none; text-transform: uppercase;
         }
-        .back-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
-            transform: translateY(-2px);
-        }
+        .back-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* --- ЗАГОЛОВОК СЕКЦИИ --- */
         .section-label {
             font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
-            letter-spacing: 3px; margin: 30px 0 20px;
-            display: flex; align-items: center; gap: 15px;
-            text-transform: uppercase;
+            letter-spacing: 3px; margin: 30px 0 20px; display: flex; align-items: center; gap: 15px;
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
-        /* --- КАРТОЧКА МАТЧА (ПК ВЕРСИЯ) --- */
+        /* --- СПИСОК МАТЧЕЙ --- */
         .match-item {
             background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: 0.3s;
-            animation: fadeIn 0.5s ease backwards;
+            border: 1px solid var(--border); border-radius: 20px; padding: 25px;
+            margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: 0.3s;
         }
+        .match-item:hover { border-color: var(--primary); transform: translateY(-3px); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .match-item:hover {
-            border-color: rgba(0, 242, 254, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .match-main { display: flex; align-items: center; gap: 25px; flex: 1; }
-
-        .match-status {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            font-weight: 900;
-            width: 65px;
-            text-align: center;
-            padding: 5px 0;
-            border-radius: 6px;
-            letter-spacing: 1px;
-            flex-shrink: 0;
-        }
+        .match-main { display: flex; align-items: center; gap: 25px; }
+        .match-status { font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; width: 65px; text-align: center; padding: 5px 0; border-radius: 6px; }
         .win { background: rgba(0, 255, 133, 0.1); color: var(--good); border: 1px solid rgba(0, 255, 133, 0.4); }
         .loss { background: rgba(255, 75, 75, 0.1); color: var(--bad); border: 1px solid rgba(255, 75, 75, 0.4); }
 
-        .vs-box { font-family: 'Orbitron', sans-serif; display: flex; align-items: center; flex-wrap: wrap; }
-        
-        .team-ego-name { color: var(--primary); font-weight: 800; font-size: 17px; letter-spacing: 1px; }
+        .team-ego-name { color: var(--primary); font-weight: 800; font-size: 17px; }
         .vs-text { color: rgba(255,255,255,0.2); font-size: 11px; margin: 0 12px; }
-        .opponent-name { color: #fff; font-weight: 700; font-size: 16px; opacity: 0.9; }
+        .opponent-name { color: #fff; font-weight: 700; font-size: 16px; }
 
-        .match-details { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; margin-left: 15px; }
+        .match-details { text-align: right; }
+        .match-score { font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; }
+        .match-map { font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-top: 4px; }
 
-        .match-score { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 20px; 
-            font-weight: 900;
-            letter-spacing: 1px;
+        /* --- МОДАЛЬНОЕ ОКНО (СТАТИСТИКА) --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center;
+            z-index: 1000; padding: 15px; backdrop-filter: blur(15px);
         }
-        .score-win { color: var(--good); text-shadow: 0 0 10px rgba(0, 255, 133, 0.2); }
-        .score-loss { color: var(--bad); text-shadow: 0 0 10px rgba(255, 75, 75, 0.2); }
+        .modal.active { display: flex; }
 
-        .match-map {
-            font-size: 9px;
-            color: rgba(255,255,255,0.3);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .modal-content {
+            background: #0d1117; width: 100%; max-width: 1000px;
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 25px; position: relative; max-height: 95vh; overflow-y: auto;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
-        /* --- АДАПТАЦИЯ ПОД МОБИЛКИ --- */
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 28px;
+            color: #888; cursor: pointer; transition: 0.2s;
+        }
+        .close-modal:hover { color: var(--bad); }
+
+        .stats-top-info { text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        .stats-score-row { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; letter-spacing: 2px; }
+        .stats-map-name { color: var(--primary); font-size: 12px; letter-spacing: 3px; margin-top: 8px; font-family: 'Orbitron'; }
+
+        /* ТАБЛИЦА СТАТИСТИКИ */
+        .team-block { margin-top: 25px; }
+        .team-name-banner { 
+            background: rgba(255,255,255,0.03); padding: 10px 15px; 
+            font-family: 'Orbitron', sans-serif; font-size: 13px; font-weight: 700;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 4px solid var(--primary); margin-bottom: 5px;
+        }
+        .opp-banner { border-left-color: #555; }
+
+        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .stats-table th { 
+            text-align: left; padding: 10px; color: #555; 
+            font-family: 'Orbitron', sans-serif; font-size: 9px; border-bottom: 1px solid var(--border);
+        }
+        .stats-table td { padding: 12px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        
+        .p-name { color: #fff; font-weight: 600; }
+        .p-ego { color: var(--primary); }
+        .num-val { font-family: 'Orbitron', sans-serif; font-size: 12px; }
+
+        /* МОБИЛКА */
         @media (max-width: 600px) {
-            body { padding: 20px 15px; }
-            .header { margin-bottom: 30px; }
-            
-            /* Уменьшаем лого на телефоне, как в главном меню */
-            .logo-img { 
-                width: 110px; 
-                margin-bottom: 10px;
-            }
-
-            .back-nav { margin-bottom: 20px; }
-            .back-btn { padding: 8px 18px; font-size: 9px; letter-spacing: 1px; }
-
-            .section-label { font-size: 12px; letter-spacing: 2px; margin: 20px 0 15px; gap: 10px; }
-
-            /* Карточка-стек для телефона (исправленная центровка) */
-            .match-item { 
-                flex-direction: column; 
-                align-items: flex-start; 
-                gap: 15px;
-                padding: 15px;
-                border-radius: 15px;
-            }
-            .match-main { width: 100%; justify-content: flex-start; gap: 15px; }
-            
-            .vs-box { flex-direction: row; align-items: center; }
-            .team-ego-name { font-size: 14px; }
-            .opponent-name { font-size: 13px; }
-            .vs-text { margin: 0 8px; font-size: 9px; }
-
-            .match-details { 
-                width: 100%; 
-                flex-direction: row; 
-                justify-content: space-between; 
-                align-items: center;
-                margin-left: 0;
-                padding-top: 10px;
-                border-top: 1px solid var(--border);
-            }
-            
-            .match-score { font-size: 16px; letter-spacing: 1px; }
-            .match-map { font-size: 8px; letter-spacing: 1px; }
+            .logo-img { width: 110px; }
+            .match-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .match-details { width: 100%; display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 10px; }
+            .modal-content { padding: 15px; }
+            .stats-table th, .stats-table td { padding: 8px 4px; font-size: 10px; }
+            .num-val { font-size: 10px; }
+            .stats-score-row { font-size: 18px; }
         }
     </style>
 </head>
@@ -202,7 +142,7 @@
 
     <div class="section-label">MATCH HISTORY</div>
 
-    <div class="match-item" style="animation-delay: 0.1s;">
+    <div class="match-item" onclick="openStats('NAVI JUNIOR', '13 : 10', 'Ancient')">
         <div class="match-main">
             <div class="match-status win">WIN</div>
             <div class="vs-box">
@@ -212,12 +152,12 @@
             </div>
         </div>
         <div class="match-details">
-            <div class="match-score score-win">13 : 10</div>
+            <div class="match-score win">13 : 10</div>
             <div class="match-map">Ancient</div>
         </div>
     </div>
 
-    <div class="match-item" style="animation-delay: 0.2s;">
+    <div class="match-item" onclick="openStats('VITALITY', '08 : 13', 'Anubis')">
         <div class="match-main">
             <div class="match-status loss">LOSS</div>
             <div class="vs-box">
@@ -227,27 +167,108 @@
             </div>
         </div>
         <div class="match-details">
-            <div class="match-score score-loss">08 : 13</div>
+            <div class="match-score loss">08 : 13</div>
             <div class="match-map">Anubis</div>
         </div>
     </div>
+</div>
 
-    <div class="match-item" style="animation-delay: 0.3s;">
-        <div class="match-main">
-            <div class="match-status win">WIN</div>
-            <div class="vs-box">
-                <span class="team-ego-name">TEAM EGO</span>
-                <span class="vs-text">VS</span>
-                <span class="opponent-name">MOUZ NXT</span>
+<div id="statsModal" class="modal" onclick="closeStats(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="document.getElementById('statsModal').classList.remove('active')">&times;</span>
+        
+        <div class="stats-top-info">
+            <div class="stats-score-row">
+                <span style="color:var(--primary)">TEAM EGO</span> 
+                <span id="mScore" style="margin: 0 15px;">13 : 10</span> 
+                <span id="mOppName">NAVI</span>
             </div>
+            <div class="stats-map-name" id="mMap">ANCIENT</div>
         </div>
-        <div class="match-details">
-            <div class="match-score score-win">16 : 14</div>
-            <div class="match-map">Mirage</div>
+
+        <div class="team-block">
+            <div class="team-name-banner">TEAM EGO</div>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>ИГРОК</th><th>K</th><th>D</th><th>A</th><th>СУ/Р</th><th>У/С</th><th>У/Р</th><th>HS</th><th>HS%</th>
+                    </tr>
+                </thead>
+                <tbody id="egoTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="team-block">
+            <div class="team-name-banner opp-banner" id="mOppBanner">OPPONENT</div>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>ИГРОК</th><th>K</th><th>D</th><th>A</th><th>СУ/Р</th><th>У/С</th><th>У/Р</th><th>HS</th><th>HS%</th>
+                    </tr>
+                </thead>
+                <tbody id="oppTableBody"></tbody>
+            </table>
         </div>
     </div>
-
 </div>
+
+<script>
+    function openStats(oppName, score, mapName) {
+        document.getElementById('mScore').innerText = score;
+        document.getElementById('mOppName').innerText = oppName;
+        document.getElementById('mOppBanner').innerText = oppName;
+        document.getElementById('mMap').innerText = mapName.toUpperCase();
+
+        // ДАННЫЕ TEAM EGO (Всегда слева/сверху)
+        const egoPlayers = [
+            ["mehmetali38", 22, 17, 0, "87.9", "1.29", "1.00", 9, "40.9%"],
+            ["paowpeek", 18, 16, 4, "97.2", "1.13", "0.82", 12, "66.7%"],
+            ["SHOKOLADN...", 15, 18, 7, "82.9", "0.83", "0.68", 7, "46.7%"],
+            ["Valadimira", 8, 21, 2, "53.9", "0.38", "0.36", 2, "25.0%"],
+            ["kuragiri666", 15, 19, 6, "79.5", "0.79", "0.68", 8, "53.3%"]
+        ];
+
+        // ДАННЫЕ ПРОТИВНИКА (Рандомные ники)
+        const oppPlayers = [
+            ["9livesofhell", 22, 14, 7, "113.3", "1.57", "1.00", 14, "63.6%"],
+            ["MrFlayz", 20, 15, 12, "104.8", "1.33", "0.91", 8, "40.0%"],
+            ["Dragers11", 17, 14, 5, "77.9", "1.21", "0.77", 7, "41.2%"],
+            ["philipp83123", 15, 17, 1, "45.7", "0.88", "0.68", 4, "26.7%"],
+            ["lxnzs", 16, 18, 8, "93.3", "0.89", "0.73", 8, "50.0%"]
+        ];
+
+        fillTable("egoTableBody", egoPlayers, true);
+        fillTable("oppTableBody", oppPlayers, false);
+
+        document.getElementById('statsModal').classList.add('active');
+    }
+
+    function fillTable(id, players, isEgo) {
+        const body = document.getElementById(id);
+        body.innerHTML = "";
+        players.forEach(p => {
+            body.innerHTML += `
+                <tr>
+                    <td class="p-name ${isEgo ? 'p-ego' : ''}">${p[0]}</td>
+                    <td class="num-val">${p[1]}</td>
+                    <td class="num-val">${p[2]}</td>
+                    <td class="num-val">${p[3]}</td>
+                    <td class="num-val">${p[4]}</td>
+                    <td class="num-val">${p[5]}</td>
+                    <td class="num-val">${p[6]}</td>
+                    <td class="num-val">${p[7]}</td>
+                    <td class="num-val">${p[8]}</td>
+                </tr>
+            `;
+        });
+    }
+
+    function closeStats(e) {
+        if(e.target.id === 'statsModal') {
+            document.getElementById('statsModal').classList.remove('active');
+        }
+    }
+</script>
 
 </body>
 </html>
