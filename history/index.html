@@ -81,19 +81,32 @@
         .score { font-size: 18px; font-weight: 900; color: var(--good); display: block; }
         .map-name { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- МОДАЛЬНОЕ ОКНО --- */
+        /* --- МОДАЛЬНОЕ ОКНО (ОБНОВЛЕНО: ПЛАВНОСТЬ) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
+            /* Плавность появления фона */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-        .modal-overlay.active { display: flex; }
+        .modal-overlay.active { 
+            opacity: 1; 
+            visibility: visible; 
+        }
         .modal-content {
             background: var(--modal-bg); border: 1px solid rgba(0, 242, 254, 0.15);
             width: 100%; max-width: 950px; border-radius: 16px;
             position: relative; padding: 30px 40px; max-height: 95vh;
             overflow-y: auto; box-shadow: 0 10px 50px rgba(0,0,0,0.8);
             scrollbar-width: none; -ms-overflow-style: none;
+            /* Эффект вылета окна */
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
         }
         .modal-content::-webkit-scrollbar { display: none; }
         .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; color: #666; cursor: pointer; transition: 0.2s; font-family: sans-serif; }
