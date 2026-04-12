@@ -102,27 +102,42 @@
         .score { font-size: 18px; font-weight: 900; color: var(--good); display: block; }
         .map-name { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- МОДАЛЬНОЕ ОКНО (1 В 1 СО СКРИНА) --- */
+        /* --- МОДАЛЬНОЕ ОКНО --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none;
+            /* Сделал фон более прозрачным и добавил сильный блюр */
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: none;
             justify-content: center; align-items: center; z-index: 1000;
-            padding: 20px; backdrop-filter: blur(5px);
+            padding: 20px;
         }
         .modal-overlay.active { display: flex; }
         
         .modal-content {
             background: var(--modal-bg); 
             border: 1px solid rgba(0, 242, 254, 0.15);
-            width: 100%; max-width: 850px; border-radius: 16px;
-            position: relative; padding: 40px 50px;
-            max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            /* Сделал окно шире (950px вместо 850px) и немного уменьшил внутренние отступы по высоте */
+            width: 100%; max-width: 950px; 
+            border-radius: 16px;
+            position: relative; padding: 30px 40px;
+            max-height: 95vh;
+            overflow-y: auto; /* Оставляем на случай супер-мелких экранов */
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            /* Скрываем уродливый скроллбар */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        /* Скрываем скроллбар для Chrome/Safari */
+        .modal-content::-webkit-scrollbar {
+            display: none;
         }
 
         .modal-close { 
-            position: absolute; top: 20px; right: 25px; font-size: 24px; 
-            color: #444; cursor: pointer; transition: 0.2s; font-family: sans-serif;
+            position: absolute; top: 15px; right: 20px; font-size: 24px; 
+            color: #666; cursor: pointer; transition: 0.2s; font-family: sans-serif;
         }
         .modal-close:hover { color: #fff; }
 
@@ -136,21 +151,24 @@
         .team-name-right { color: #fff; font-family: 'Orbitron'; font-size: 22px; font-weight: 700; text-transform: uppercase; }
         
         .modal-map-name {
-            text-align: center; color: rgba(0, 242, 254, 0.7); font-family: 'Orbitron'; 
-            font-size: 12px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 40px;
+            text-align: center; 
+            color: #888888; /* Сделал надпись карты серой */
+            font-family: 'Orbitron'; 
+            font-size: 12px; letter-spacing: 5px; text-transform: uppercase; 
+            margin-bottom: 30px; /* Чуть уменьшил отступ снизу */
         }
 
         /* Полосы команд */
         .team-bar {
             background: rgba(255, 255, 255, 0.03); padding: 12px 20px;
             font-family: 'Orbitron'; font-size: 11px; color: #fff; text-transform: uppercase;
-            margin-bottom: 10px; font-weight: 700;
+            margin-bottom: 5px; font-weight: 700;
         }
         .ego-bar { border-left: 3px solid var(--primary); }
         .enemy-bar { border-left: 3px solid #555; }
 
         /* Таблицы статистики */
-        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .stats-table th {
             font-family: 'Orbitron'; font-size: 10px; color: #666;
             text-transform: uppercase; letter-spacing: 1px; padding: 10px;
@@ -158,7 +176,7 @@
         }
         .stats-table td {
             font-family: 'Orbitron'; font-size: 14px; color: #fff;
-            padding: 16px 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02);
+            padding: 14px 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02);
         }
         .col-player { text-align: left !important; width: 35%; padding-left: 20px !important; }
         .player-name { text-align: left !important; font-weight: 700; padding-left: 20px !important; }
@@ -255,7 +273,7 @@
         <div class="team-bar enemy-bar">ENEMY TEAM</div>
         <table class="stats-table" style="margin-bottom: 0;">
             <thead>
-                </thead>
+            </thead>
             <tbody>
                 <tr>
                     <td class="player-name">Enemy Player 1</td>
