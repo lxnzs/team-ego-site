@@ -31,7 +31,6 @@
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
-        /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 40px; }
         
         .logo-img { 
@@ -56,7 +55,6 @@
             margin-bottom: 20px;
         }
 
-        /* --- КНОПКА ИСТОРИИ МАТЧЕЙ --- */
         .match-history-btn {
             display: inline-flex;
             align-items: center;
@@ -81,7 +79,6 @@
         }
         .match-history-btn:active { transform: scale(0.95); }
 
-        /* --- СЕКЦИИ --- */
         .section-label {
             font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
             letter-spacing: 3px; margin: 30px 0 20px;
@@ -89,7 +86,6 @@
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
-        /* --- КАРТОЧКА ИГРОКА --- */
         .player-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -127,7 +123,6 @@
             flex-shrink: 0;
         }
 
-        /* --- СТАТИСТИКА --- */
         .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
@@ -139,7 +134,6 @@
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        /* --- ИНТЕРАКТИВНЫЕ КНОПКИ (Coach/Sub) --- */
         .info-link { text-decoration: none; display: block; margin-bottom: 15px; }
         .info-box {
             text-align: center; padding: 35px;
@@ -157,7 +151,6 @@
             transform: translateY(-3px);
         }
 
-        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
             .header { margin-bottom: 30px; }
@@ -179,7 +172,7 @@
 
 <div class="container">
     <header class="header">
-        <a href="/"><img src="/logo.PNG" class="logo-img" title="На главную"></a>
+        <a href="/"><img src="logo.PNG" class="logo-img" title="На главную"></a>
         <h1 class="team-title">Team Ego</h1>
         
         <a href="/history" class="match-history-btn">
@@ -192,11 +185,11 @@
     <div class="player-item">
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="/avatar.PNG"></div>
+                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> -himeraa666
                     <a href="https://www.faceit.com/ru/players/MrFlayz" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
-                        <img src="/faceit.png" class="faceit-ico">
+                        <img src="faceit.png" class="faceit-ico">
                     </a>
                 </div>
             </div>
@@ -213,11 +206,11 @@
     <div class="player-item">
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="/avatar.PNG"></div>
+                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> angeldust
                     <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
-                        <img src="/faceit.png" class="faceit-ico">
+                        <img src="faceit.png" class="faceit-ico">
                     </a>
                 </div>
             </div>
@@ -234,11 +227,11 @@
     <div class="player-item">
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="/avatar.PNG"></div>
+                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> lanes
                     <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
-                        <img src="/faceit.png" class="faceit-ico">
+                        <img src="faceit.png" class="faceit-ico">
                     </a>
                 </div>
             </div>
@@ -255,11 +248,11 @@
     <div class="player-item">
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="/avatar.PNG"></div>
+                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/il.png" class="flag-img"> aimlord
                     <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" class="faceit-link" onclick="event.stopPropagation()">
-                        <img src="/faceit.png" class="faceit-ico">
+                        <img src="faceit.png" class="faceit-ico">
                     </a>
                 </div>
             </div>
@@ -276,7 +269,7 @@
     <div class="player-item">
         <div class="player-header no-click">
             <div class="player-info">
-                <div class="avatar-box"><img src="/avatar.PNG"></div>
+                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">SOON...</div>
             </div>
             <div class="role-badge" style="opacity: 0.5;">TBD</div>
