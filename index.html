@@ -99,27 +99,38 @@
             overflow: hidden;
             transition: 0.3s;
         }
-        
-        /* Силуэт игрока */
+
+        /* --- ОБНОВЛЕННЫЙ СТИЛЬ СИЛУЭТА --- */
         .player-silhouette {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('avatar.PNG'); /* Твоя картинка */
-            background-repeat: no-repeat;
+            left: -10px;
+            bottom: -10px;
+            height: 120%;
+            width: 250px;
+            background-image: url('avatar.PNG');
             background-size: contain;
-            background-position: -20px center; /* Сдвиг влево */
-            filter: brightness(0) opacity(0.15); /* Делаем полностью черным и прозрачным */
-            pointer-events: none; /* Чтобы не мешал кликам */
-            transition: 0.4s ease;
-            mask-image: linear-gradient(to right, black 20%, transparent 60%);
-            -webkit-mask-image: linear-gradient(to right, black 20%, transparent 60%);
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            pointer-events: none;
+            z-index: 1;
+            transition: 0.4s ease-out;
+            
+            /* Цвета и фильтры: делаем неоновым */
+            filter: drop-shadow(0 0 5px var(--primary)) brightness(0) invert(1) sepia(1) hue-rotate(140deg) saturate(3);
+            opacity: 0.5;
+
+            mask-image: linear-gradient(to right, black 40%, transparent 90%);
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 90%);
         }
 
         .player-item:hover { transform: translateX(5px); background: rgba(0, 242, 254, 0.05); border-color: var(--primary); }
-        .player-item:hover .player-silhouette { opacity: 0.3; filter: brightness(0) opacity(0.3); transform: scale(1.05); }
+        
+        /* Усиление силуэта при наведении */
+        .player-item:hover .player-silhouette { 
+            opacity: 0.8; 
+            filter: drop-shadow(0 0 15px var(--primary)) brightness(0) invert(1) sepia(1) hue-rotate(140deg) saturate(5);
+            transform: scale(1.05); 
+        }
 
         .player-header { 
             padding: 25px 30px; 
@@ -137,6 +148,7 @@
             font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 700; 
             display: flex; align-items: center; gap: 12px; white-space: nowrap;
             margin-left: 10px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8); /* Читаемость на фоне силуэта */
         }
 
         .flag-img { width: 24px; height: auto; border-radius: 2px; }
@@ -147,7 +159,8 @@
             font-family: 'Orbitron', sans-serif; font-size: 10px;
             padding: 5px 12px; border-radius: 4px;
             border: 1px solid var(--primary); color: var(--primary);
-            background: rgba(0, 242, 254, 0.05);
+            background: rgba(0, 0, 0, 0.6); /* Более темный фон для контраста */
+            backdrop-filter: blur(2px);
         }
 
         /* --- ВАКАНТНЫЙ СЛОТ --- */
@@ -164,12 +177,12 @@
         }
 
         /* --- СТАТИСТИКА --- */
-        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.3); position: relative; z-index: 2;}
+        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.5); position: relative; z-index: 2;}
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid rgba(0, 242, 254, 0.1); }
         .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
         .stat-card { text-align: center; padding: 10px; }
         .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; }
-        .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
+        .stat-label { font-size: 9px; color: #aaa; text-transform: uppercase; }
 
         .val-bad { color: var(--bad) !important; }
         .val-okay { color: var(--okay) !important; }
@@ -199,7 +212,7 @@
         @media (max-width: 600px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .nickname { font-size: 16px; }
-            .player-silhouette { background-position: -10px center; width: 150px;}
+            .player-silhouette { width: 180px; opacity: 0.4; }
         }
     </style>
 </head>
@@ -298,7 +311,7 @@
         </div></div>
     </div>
 
-    <a href="ССЫЛКА_ДЛЯ_5_ИГРОКА" target="_blank" style="text-decoration: none;">
+    <a href="#" target="_blank" style="text-decoration: none;">
         <div class="player-item vacant">
             <div class="player-header">
                 <div class="player-info">
@@ -310,7 +323,7 @@
     </a>
 
     <div class="section-label">STRATEGIC COACH</div>
-    <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
+    <a href="#" target="_blank" class="vacancy-card">
         <div class="vacancy-info">
             <div class="vacancy-title">Analyzing tactical opportunities</div>
             <div class="vacancy-status"><span class="status-dot"></span> Open for applications</div>
@@ -319,7 +332,7 @@
     </a>
 
     <div class="section-label">SUBSTITUTES</div>
-    <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
+    <a href="#" target="_blank" class="vacancy-card">
         <div class="vacancy-info">
             <div class="vacancy-title">Searching for talents</div>
             <div class="vacancy-status"><span class="status-dot"></span> Recruitment active</div>
