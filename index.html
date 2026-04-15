@@ -36,19 +36,12 @@
 
         /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 40px; }
-        
         .logo-img { 
-            width: 180px; 
-            height: auto;
+            width: 180px; height: auto;
             filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-            margin-bottom: 15px; 
-            transition: 0.2s ease;
-            cursor: pointer;
+            margin-bottom: 15px; transition: 0.2s ease; cursor: pointer;
         }
-        .logo-img:hover {
-            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
-            transform: scale(1.05);
-        }
+        .logo-img:hover { filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9)); transform: scale(1.05); }
 
         .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
@@ -59,26 +52,11 @@
         }
 
         .match-history-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 25px;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--primary);
-            border-radius: 30px;
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .match-history-btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            transform: translateY(-2px);
+            display: inline-flex; align-items: center; gap: 10px; padding: 10px 25px;
+            background: rgba(0, 242, 254, 0.05); border: 1px solid var(--primary);
+            border-radius: 30px; color: var(--primary); font-family: 'Orbitron', sans-serif;
+            font-size: 12px; letter-spacing: 2px; text-decoration: none;
+            transition: all 0.3s ease; text-transform: uppercase;
         }
 
         /* --- СЕКЦИИ --- */
@@ -93,45 +71,63 @@
         .player-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 15px;
             position: relative;
             overflow: hidden;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .player-item::before {
-            content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-            width: 3px; background: var(--primary); opacity: 0; transition: 0.3s;
+        /* Красивый силуэт на фоне */
+        .player-silhouette {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 150px; /* Ширина области силуэта */
+            background-image: url('avatar.PNG'); /* Сюда можно разные картинки для каждого */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left center;
+            opacity: 0.15; /* Делаем его неброским, как водяной знак */
+            filter: grayscale(1) brightness(0.5); /* Стиль под "черный силуэт" */
+            mask-image: linear-gradient(to right, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 100%);
+            pointer-events: none;
+            transition: 0.4s;
         }
 
-        .player-item:hover { transform: translateX(5px); background: rgba(0, 242, 254, 0.05); border-color: var(--primary); }
-        .player-item:hover::before { opacity: 1; }
+        .player-item:hover { transform: translateX(8px); background: rgba(0, 242, 254, 0.08); border-color: var(--primary); }
+        .player-item:hover .player-silhouette { opacity: 0.3; transform: scale(1.05); }
 
-        .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .player-header { 
+            padding: 25px 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            cursor: pointer;
+            position: relative; 
+            z-index: 2; /* Над силуэтом */
+        }
 
         .player-info { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 0; }
-        .avatar-box {
-            width: 50px; height: 50px; background: #111; border-radius: 8px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .avatar-box img { width: 70%; }
 
         .nickname { 
-            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; 
-            display: flex; align-items: center; gap: 12px; white-space: nowrap;
+            font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 700; 
+            display: flex; align-items: center; gap: 15px; white-space: nowrap;
+            margin-left: 10px; /* Отступ от края, где силуэт */
         }
 
-        .flag-img { width: 24px; height: auto; border-radius: 2px; }
+        .flag-img { width: 24px; height: auto; border-radius: 2px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
         .faceit-ico { width: 26px; height: auto; transition: 0.2s; }
         .faceit-ico:hover { filter: drop-shadow(0 0 5px var(--primary)); transform: scale(1.1); }
 
         .role-badge {
             font-family: 'Orbitron', sans-serif; font-size: 10px;
-            padding: 5px 12px; border-radius: 4px;
+            padding: 6px 14px; border-radius: 4px;
             border: 1px solid var(--primary); color: var(--primary);
-            background: rgba(0, 242, 254, 0.05);
+            background: rgba(0, 242, 254, 0.1);
+            letter-spacing: 1px;
         }
 
         /* --- ВАКАНТНЫЙ СЛОТ --- */
@@ -140,88 +136,48 @@
             border: 1px dashed rgba(0, 242, 254, 0.3);
             animation: slotPulse 4s infinite ease-in-out;
         }
-        .avatar-box.vacant-ico {
-            background: transparent;
-            border: 1px dashed rgba(0, 242, 254, 0.4);
-        }
-        .avatar-box.vacant-ico::before { content: "+"; color: var(--primary); font-size: 20px; opacity: 0.5; }
-        .nickname.vacant-txt { color: rgba(255,255,255,0.3); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+        .nickname.vacant-txt { color: rgba(255,255,255,0.2); font-size: 16px; letter-spacing: 4px; text-transform: uppercase; }
 
         @keyframes slotPulse {
-            0%, 100% { border-color: rgba(0, 242, 254, 0.2); }
-            50% { border-color: rgba(0, 242, 254, 0.5); }
+            0%, 100% { border-color: rgba(0, 242, 254, 0.1); }
+            50% { border-color: rgba(0, 242, 254, 0.4); }
         }
 
         /* --- СТАТИСТИКА --- */
-        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.3); }
+        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.4); position: relative; z-index: 2;}
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid rgba(0, 242, 254, 0.1); }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
-        .stat-card { text-align: center; padding: 10px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 25px; }
+        .stat-card { text-align: center; }
         .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; }
-        .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
+        .stat-label { font-size: 9px; color: #666; text-transform: uppercase; margin-top: 4px; }
 
         .val-bad { color: var(--bad) !important; }
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        /* --- ВАКАНСИИ (БЕЗ ПОЛОСКИ) --- */
+        /* --- ВАКАНСИИ --- */
         .vacancy-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            border-radius: 12px;
-            padding: 20px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            margin-bottom: 15px;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 12px; padding: 20px 30px; display: flex;
+            align-items: center; justify-content: space-between;
+            text-decoration: none; margin-bottom: 15px; transition: 0.3s;
         }
-
-        .vacancy-card:hover {
-            background: rgba(0, 242, 254, 0.06);
-            border-color: rgba(0, 242, 254, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .vacancy-title { 
-            font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; 
-            text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
-        }
-
-        .vacancy-status { 
-            font-size: 10px; color: var(--primary); text-transform: uppercase; 
-            margin-top: 6px; display: flex; align-items: center; gap: 8px; letter-spacing: 1px;
-        }
-
-        /* Пульсирующая точка */
-        .status-dot {
-            width: 6px; height: 6px; background: var(--primary); border-radius: 50%;
-            box-shadow: 0 0 8px var(--primary); animation: dotBlink 1.5s infinite;
-        }
-
-        @keyframes dotBlink {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-        }
-
+        .vacancy-card:hover { background: rgba(0, 242, 254, 0.06); transform: translateY(-2px); }
+        .vacancy-title { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; text-transform: uppercase; }
+        .vacancy-status { font-size: 10px; color: var(--primary); margin-top: 6px; display: flex; align-items: center; gap: 8px; }
+        .status-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); animation: dotBlink 1.5s infinite; }
+        @keyframes dotBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .vacancy-action {
             background: transparent; border: 1px solid var(--primary); color: var(--primary);
             padding: 10px 22px; font-family: 'Orbitron', sans-serif; font-size: 10px;
-            border-radius: 6px; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.3s; font-weight: 700;
+            border-radius: 6px; text-transform: uppercase; transition: 0.3s; font-weight: 700;
         }
-        
-        .vacancy-card:hover .vacancy-action { 
-            background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-        }
+        .vacancy-card:hover .vacancy-action { background: var(--primary); color: #000; }
 
         @media (max-width: 600px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .vacancy-card { padding: 20px; flex-direction: row; text-align: left; }
-            .vacancy-title { font-size: 12px; }
-            .vacancy-action { padding: 8px 14px; font-size: 9px; }
+            .nickname { font-size: 16px; margin-left: 5px; }
+            .player-silhouette { width: 100px; }
         }
     </style>
 </head>
@@ -237,9 +193,9 @@
     <div class="section-label">MAIN ROSTER</div>
 
     <div class="player-item">
+        <div class="player-silhouette"></div>
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> -himeraa666
                     <a href="https://www.faceit.com/ru/players/MrFlayz" target="_blank" onclick="event.stopPropagation()">
@@ -258,9 +214,9 @@
     </div>
 
     <div class="player-item">
+        <div class="player-silhouette"></div>
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> angeldust
                     <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" onclick="event.stopPropagation()">
@@ -279,9 +235,9 @@
     </div>
 
     <div class="player-item">
+        <div class="player-silhouette"></div>
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> lanes
                     <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" onclick="event.stopPropagation()">
@@ -300,9 +256,9 @@
     </div>
 
     <div class="player-item">
+        <div class="player-silhouette"></div>
         <div class="player-header" onclick="toggleStats(this)">
             <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
                 <div class="nickname">
                     <img src="https://flagcdn.com/w40/il.png" class="flag-img"> aimlord
                     <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" onclick="event.stopPropagation()">
@@ -324,7 +280,6 @@
         <div class="player-item vacant">
             <div class="player-header">
                 <div class="player-info">
-                    <div class="avatar-box vacant-ico"></div>
                     <div class="nickname vacant-txt">Vacant Slot</div>
                 </div>
                 <div class="role-badge" style="opacity: 0.3; border-style: dashed;">TBD</div>
@@ -336,9 +291,7 @@
     <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
         <div class="vacancy-info">
             <div class="vacancy-title">Analyzing tactical opportunities</div>
-            <div class="vacancy-status">
-                <span class="status-dot"></span> Open for applications
-            </div>
+            <div class="vacancy-status"><span class="status-dot"></span> Open for applications</div>
         </div>
         <div class="vacancy-action">Become Coach</div>
     </a>
@@ -347,9 +300,7 @@
     <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
         <div class="vacancy-info">
             <div class="vacancy-title">Searching for talents</div>
-            <div class="vacancy-status">
-                <span class="status-dot"></span> Recruitment active
-            </div>
+            <div class="vacancy-status"><span class="status-dot"></span> Recruitment active</div>
         </div>
         <div class="vacancy-action">Join the Team</div>
     </a>
