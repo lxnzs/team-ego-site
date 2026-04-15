@@ -7,7 +7,7 @@
     
     <title>Team Ego | Roster</title>
     
-    <link rel="icon" type="image/png" href="logo1.png">
+    <link rel="icon" type="image/png" href="logo2.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -164,10 +164,10 @@
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        /* --- НОВЫЕ ПЕРЕЛИВАЮЩИЕСЯ ВАКАНСИИ --- */
+        /* --- ВАКАНСИИ (БЕЗ ПОЛОСКИ) --- */
         .vacancy-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.2);
             border-radius: 12px;
             padding: 20px 30px;
             display: flex;
@@ -177,30 +177,12 @@
             margin-bottom: 15px;
             transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
-        }
-
-        /* Та самая переливающаяся полоска */
-        .vacancy-card::before {
-            content: "";
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, transparent, var(--primary), #fff, var(--primary), transparent);
-            background-size: 100% 200%;
-            animation: flowLine 3s linear infinite;
-            box-shadow: 2px 0 15px rgba(0, 242, 254, 0.4);
-        }
-
-        @keyframes flowLine {
-            0% { background-position: 0% 200%; }
-            100% { background-position: 0% 0%; }
         }
 
         .vacancy-card:hover {
             background: rgba(0, 242, 254, 0.06);
             border-color: rgba(0, 242, 254, 0.4);
-            transform: translateX(5px);
+            transform: translateY(-2px);
         }
 
         .vacancy-title { 
