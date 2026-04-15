@@ -8,7 +8,6 @@
     <title>Team Ego | Roster</title>
     
     <link rel="icon" type="image/png" href="logo1.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -36,19 +35,12 @@
 
         /* --- ШАПКА --- */
         .header { text-align: center; margin-bottom: 40px; }
-        
         .logo-img { 
-            width: 180px; 
-            height: auto;
+            width: 180px; height: auto;
             filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-            margin-bottom: 15px; 
-            transition: 0.2s ease;
-            cursor: pointer;
+            margin-bottom: 15px; transition: 0.2s ease; cursor: pointer;
         }
-        .logo-img:hover {
-            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
-            transform: scale(1.05);
-        }
+        .logo-img:hover { filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9)); transform: scale(1.05); }
 
         .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
@@ -56,29 +48,6 @@
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-        }
-
-        .match-history-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 25px;
-            background: rgba(0, 242, 254, 0.05);
-            border: 1px solid var(--primary);
-            border-radius: 30px;
-            color: var(--primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .match-history-btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            transform: translateY(-2px);
         }
 
         /* --- СЕКЦИИ --- */
@@ -93,20 +62,20 @@
         .player-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 15px;
             position: relative;
             overflow: hidden;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- ОБНОВЛЕННЫЙ СТИЛЬ СИЛУЭТА --- */
+        /* --- СИЛУЭТ (ОБНОВЛЕННЫЙ) --- */
         .player-silhouette {
             position: absolute;
-            left: -10px;
-            bottom: -10px;
-            height: 120%;
-            width: 250px;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+            width: 150px;
             background-image: url('avatar.PNG');
             background-size: contain;
             background-repeat: no-repeat;
@@ -115,21 +84,18 @@
             z-index: 1;
             transition: 0.4s ease-out;
             
-            /* Цвета и фильтры: делаем неоновым */
-            filter: drop-shadow(0 0 5px var(--primary)) brightness(0) invert(1) sepia(1) hue-rotate(140deg) saturate(3);
-            opacity: 0.5;
-
-            mask-image: linear-gradient(to right, black 40%, transparent 90%);
-            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 90%);
+            /* Неоновый эффект: подстраиваем под Cyan/Aqua */
+            filter: brightness(0) invert(1) sepia(1) hue-rotate(150deg) saturate(2) opacity(0.4);
+            
+            /* Мягкое растворение краев */
+            -webkit-mask-image: linear-gradient(to right, black 40%, transparent 95%);
+            mask-image: linear-gradient(to right, black 40%, transparent 95%);
         }
 
-        .player-item:hover { transform: translateX(5px); background: rgba(0, 242, 254, 0.05); border-color: var(--primary); }
-        
-        /* Усиление силуэта при наведении */
-        .player-item:hover .player-silhouette { 
-            opacity: 0.8; 
-            filter: drop-shadow(0 0 15px var(--primary)) brightness(0) invert(1) sepia(1) hue-rotate(140deg) saturate(5);
-            transform: scale(1.05); 
+        .player-item:hover .player-silhouette {
+            opacity: 0.7;
+            filter: brightness(0) invert(1) sepia(1) hue-rotate(150deg) saturate(3) drop-shadow(0 0 10px var(--primary));
+            transform: scale(1.05);
         }
 
         .player-header { 
@@ -139,80 +105,74 @@
             justify-content: space-between; 
             cursor: pointer;
             position: relative;
-            z-index: 2; /* Текст поверх силуэта */
+            z-index: 2;
         }
 
-        .player-info { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 0; }
+        /* --- СДВИГ НИКА И ФЛАГА --- */
+        .player-info { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            flex: 1; 
+            padding-left: 80px; /* Сдвиг вправо от силуэта */
+            transition: 0.3s ease;
+        }
+        
+        .player-item:hover .player-info {
+            padding-left: 90px; /* Легкая анимация текста */
+        }
 
         .nickname { 
             font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 700; 
-            display: flex; align-items: center; gap: 12px; white-space: nowrap;
-            margin-left: 10px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8); /* Читаемость на фоне силуэта */
+            display: flex; align-items: center; gap: 12px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        .flag-img { width: 24px; height: auto; border-radius: 2px; }
+        .flag-img { width: 26px; height: auto; border-radius: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .faceit-ico { width: 26px; height: auto; transition: 0.2s; }
         .faceit-ico:hover { filter: drop-shadow(0 0 5px var(--primary)); transform: scale(1.1); }
 
         .role-badge {
             font-family: 'Orbitron', sans-serif; font-size: 10px;
-            padding: 5px 12px; border-radius: 4px;
+            padding: 6px 14px; border-radius: 6px;
             border: 1px solid var(--primary); color: var(--primary);
-            background: rgba(0, 0, 0, 0.6); /* Более темный фон для контраста */
-            backdrop-filter: blur(2px);
-        }
-
-        /* --- ВАКАНТНЫЙ СЛОТ --- */
-        .player-item.vacant {
-            background: transparent;
-            border: 1px dashed rgba(0, 242, 254, 0.3);
-            animation: slotPulse 4s infinite ease-in-out;
-        }
-        .nickname.vacant-txt { color: rgba(255,255,255,0.3); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-left: 0;}
-
-        @keyframes slotPulse {
-            0%, 100% { border-color: rgba(0, 242, 254, 0.2); }
-            50% { border-color: rgba(0, 242, 254, 0.5); }
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            letter-spacing: 1px;
         }
 
         /* --- СТАТИСТИКА --- */
-        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.5); position: relative; z-index: 2;}
-        .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid rgba(0, 242, 254, 0.1); }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
-        .stat-card { text-align: center; padding: 10px; }
-        .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; }
-        .stat-label { font-size: 9px; color: #aaa; text-transform: uppercase; }
+        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.4); position: relative; z-index: 2;}
+        .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 25px; }
+        .stat-card { text-align: center; }
+        .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; margin-bottom: 4px;}
+        .stat-label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 1px;}
 
-        .val-bad { color: var(--bad) !important; }
-        .val-okay { color: var(--okay) !important; }
-        .val-good { color: var(--good) !important; }
+        /* --- ЦВЕТА СТАТИСТИКИ --- */
+        .val-bad { color: var(--bad); }
+        .val-okay { color: var(--okay); }
+        .val-good { color: var(--good); text-shadow: 0 0 10px rgba(0, 255, 133, 0.3); }
 
         /* --- ВАКАНСИИ --- */
         .vacancy-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 242, 254, 0.2);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            margin-bottom: 15px;
-            transition: 0.3s;
+            display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; margin-bottom: 15px; transition: 0.3s;
         }
-        .vacancy-card:hover { background: rgba(0, 242, 254, 0.06); border-color: rgba(0, 242, 254, 0.4); transform: translateY(-2px); }
-        .vacancy-title { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;}
-        .vacancy-status { font-size: 10px; color: var(--primary); text-transform: uppercase; margin-top: 6px; display: flex; align-items: center; gap: 8px; letter-spacing: 1px;}
-        .status-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); animation: dotBlink 1.5s infinite;}
-        @keyframes dotBlink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
-        .vacancy-action { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px 22px; font-family: 'Orbitron', sans-serif; font-size: 10px; border-radius: 6px; text-transform: uppercase; transition: 0.3s; font-weight: 700; }
-        .vacancy-card:hover .vacancy-action { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); }
+        .vacancy-card:hover { border-color: var(--primary); background: rgba(0, 242, 254, 0.05); transform: translateY(-2px); }
+        .vacancy-title { font-family: 'Orbitron', sans-serif; font-size: 14px; color: #fff; text-transform: uppercase; }
+        .vacancy-action { border: 1px solid var(--primary); color: var(--primary); padding: 8px 20px; font-family: 'Orbitron', sans-serif; font-size: 10px; border-radius: 6px; transition: 0.3s; }
+        .vacancy-card:hover .vacancy-action { background: var(--primary); color: #000; }
 
         @media (max-width: 600px) {
+            .player-info { padding-left: 60px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .nickname { font-size: 16px; }
-            .player-silhouette { width: 180px; opacity: 0.4; }
+            .player-silhouette { width: 120px; }
         }
     </style>
 </head>
@@ -220,9 +180,8 @@
 
 <div class="container">
     <header class="header">
-        <a href="/"><img src="logo.PNG" class="logo-img"></a>
+        <a href="#"><img src="logo.PNG" class="logo-img"></a>
         <h1 class="team-title">Team Ego</h1>
-        <a href="/history" class="match-history-btn">📊 Match History</a>
     </header>
 
     <div class="section-label">MAIN ROSTER</div>
@@ -240,12 +199,14 @@
             </div>
             <div class="role-badge">IGL / AWP</div>
         </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.26</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">87.9</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">45%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">60%</span><span class="stat-label">Wins</span></div>
-        </div></div>
+        <div class="stats-panel">
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-value" data-type="kdr">1.26</span><span class="stat-label">K/D</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="adr">87.9</span><span class="stat-label">ADR</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="hs">45%</span><span class="stat-label">HS%</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="winrate">60%</span><span class="stat-label">Wins</span></div>
+            </div>
+        </div>
     </div>
 
     <div class="player-item">
@@ -261,12 +222,14 @@
             </div>
             <div class="role-badge">RIFLE</div>
         </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
-        </div></div>
+        <div class="stats-panel">
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+            </div>
+        </div>
     </div>
 
     <div class="player-item">
@@ -282,12 +245,14 @@
             </div>
             <div class="role-badge">SUPPORT</div>
         </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
-        </div></div>
+        <div class="stats-panel">
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+            </div>
+        </div>
     </div>
 
     <div class="player-item">
@@ -303,41 +268,22 @@
             </div>
             <div class="role-badge">LURKER</div>
         </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
-        </div></div>
-    </div>
-
-    <a href="#" target="_blank" style="text-decoration: none;">
-        <div class="player-item vacant">
-            <div class="player-header">
-                <div class="player-info">
-                    <div class="nickname vacant-txt">Vacant Slot</div>
-                </div>
-                <div class="role-badge" style="opacity: 0.3; border-style: dashed;">TBD</div>
+        <div class="stats-panel">
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
+                <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
             </div>
         </div>
-    </a>
+    </div>
 
-    <div class="section-label">STRATEGIC COACH</div>
-    <a href="#" target="_blank" class="vacancy-card">
+    <div class="section-label">VACANCIES</div>
+    <a href="#" class="vacancy-card">
         <div class="vacancy-info">
-            <div class="vacancy-title">Analyzing tactical opportunities</div>
-            <div class="vacancy-status"><span class="status-dot"></span> Open for applications</div>
+            <div class="vacancy-title">Strategic Coach</div>
         </div>
-        <div class="vacancy-action">Become Coach</div>
-    </a>
-
-    <div class="section-label">SUBSTITUTES</div>
-    <a href="#" target="_blank" class="vacancy-card">
-        <div class="vacancy-info">
-            <div class="vacancy-title">Searching for talents</div>
-            <div class="vacancy-status"><span class="status-dot"></span> Recruitment active</div>
-        </div>
-        <div class="vacancy-action">Join the Team</div>
+        <div class="vacancy-action">Apply</div>
     </a>
 </div>
 
@@ -348,9 +294,7 @@
         const stats = document.querySelectorAll('.stat-value');
         stats.forEach(el => {
             const type = el.getAttribute('data-type');
-            if (!type) return;
             const val = parseFloat(el.textContent.replace('%', ''));
-            el.classList.remove('val-bad', 'val-okay', 'val-good');
             if (type === 'kdr') {
                 if (val < 1.0) el.classList.add('val-bad');
                 else if (val <= 1.2) el.classList.add('val-okay');
@@ -359,7 +303,7 @@
                 if (val < 75) el.classList.add('val-bad');
                 else if (val <= 85) el.classList.add('val-okay');
                 else el.classList.add('val-good');
-            } else if (type === 'hs' || type === 'winrate') {
+            } else {
                 if (val < 45) el.classList.add('val-bad');
                 else if (val <= 55) el.classList.add('val-okay');
                 else el.classList.add('val-good');
