@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Team Ego | Match History</title>
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
     
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo1.png">
+    <title>Team Ego | Roster</title>
+    
+    <link rel="icon" type="image/png" href="logo1.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -14,10 +16,10 @@
             --primary: #00f2fe;
             --bg: #05070a;
             --card-bg: rgba(255, 255, 255, 0.03);
-            --modal-bg: #0b0e13;
-            --border: rgba(255, 255, 255, 0.1);
-            --good: #00ff85;
+            --border: rgba(0, 242, 254, 0.15);
             --bad: #ff4b4b;
+            --okay: #ffb800;
+            --good: #00ff85;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -28,129 +30,168 @@
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             padding: 40px 20px;
-            min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 900px; margin: 0 auto; }
+        .container { width: 100%; max-width: 800px; margin: 0 auto; }
 
         /* --- ШАПКА --- */
-        .header { text-align: center; margin-bottom: 50px; }
-        .logo-link { display: inline-block; text-decoration: none; margin-bottom: 20px; transition: transform 0.3s ease; }
-        .logo-link:hover { transform: scale(1.1); }
-        .logo-img { width: 180px; height: auto; filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.4)); transition: filter 0.3s ease; }
-        .logo-link:hover .logo-img { filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.8)); }
+        .header { text-align: center; margin-bottom: 40px; }
+        
+        .logo-img { 
+            width: 180px; 
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
+            margin-bottom: 15px; 
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+        .logo-img:hover {
+            filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.9));
+            transform: scale(1.05);
+        }
 
-        .page-title {
+        .team-title {
             font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900;
             letter-spacing: 6px; text-transform: uppercase;
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .back-btn {
-            display: inline-flex; align-items: center; gap: 10px; padding: 10px 25px; 
-            background: transparent; border: 1px solid var(--primary); border-radius: 30px;
-            color: var(--primary); font-family: 'Orbitron', sans-serif;
-            font-size: 11px; letter-spacing: 2px; text-decoration: none;
-            text-transform: uppercase; transition: all 0.3s ease;
+        .match-history-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 25px;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid var(--primary);
+            border-radius: 30px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
-        .back-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.5); }
+        .match-history-btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
+        }
 
-        /* --- СПИСОК МАТЧЕЙ --- */
+        /* --- СЕКЦИИ --- */
         .section-label {
             font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--primary);
-            letter-spacing: 3px; margin: 40px 0 20px; display: flex; align-items: center; gap: 15px;
+            letter-spacing: 3px; margin: 30px 0 20px;
+            display: flex; align-items: center; gap: 15px;
         }
         .section-label::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(to right, var(--primary), transparent); }
 
-        .match-row {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 16px; padding: 20px 25px; margin-bottom: 12px;
-            display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; transition: 0.2s;
+        /* --- КАРТОЧКА ИГРОКА --- */
+        .player-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
         }
-        .match-row:hover { background: rgba(255,255,255,0.06); }
-
-        .match-main { display: flex; align-items: center; gap: 20px; }
-        .win-tag { font-family: 'Orbitron'; font-size: 10px; color: var(--good); border: 1px solid var(--good); padding: 4px 8px; border-radius: 4px; }
-        .match-teams { font-family: 'Orbitron'; font-size: 16px; font-weight: 700; text-transform: uppercase; }
-        .ego-highlight { color: var(--primary); }
-        .vs-text { color: #555; font-size: 12px; margin: 0 5px; }
-        .match-result { text-align: right; font-family: 'Orbitron'; }
-        .score { font-size: 18px; font-weight: 900; color: var(--good); display: block; }
-        .map-name { font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- МОДАЛЬНОЕ ОКНО (ОБНОВЛЕНО: ПЛАВНОСТЬ) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
-            /* Плавность появления фона */
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+        
+        /* Полоска статуса при наведении */
+        .player-item::before {
+            content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 3px; background: var(--primary); opacity: 0; transition: 0.3s;
         }
-        .modal-overlay.active { 
-            opacity: 1; 
-            visibility: visible; 
+
+        .player-item:hover { transform: translateX(5px); background: rgba(0, 242, 254, 0.05); border-color: var(--primary); }
+        .player-item:hover::before { opacity: 1; }
+
+        .player-header { padding: 20px 30px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+
+        .player-info { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 0; }
+        .avatar-box {
+            width: 50px; height: 50px; background: #111; border-radius: 8px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .modal-content {
-            background: var(--modal-bg); border: 1px solid rgba(0, 242, 254, 0.15);
-            width: 100%; max-width: 950px; border-radius: 16px;
-            position: relative; padding: 30px 40px; max-height: 95vh;
-            overflow-y: auto; box-shadow: 0 10px 50px rgba(0,0,0,0.8);
-            scrollbar-width: none; -ms-overflow-style: none;
-            /* Эффект вылета окна */
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .avatar-box img { width: 70%; }
+
+        .nickname { 
+            font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; 
+            display: flex; align-items: center; gap: 12px; white-space: nowrap;
         }
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
+
+        .flag-img { width: 24px; height: auto; border-radius: 2px; }
+        .faceit-ico { width: 26px; height: auto; transition: 0.2s; }
+        .faceit-ico:hover { filter: drop-shadow(0 0 5px var(--primary)); transform: scale(1.1); }
+
+        .role-badge {
+            font-family: 'Orbitron', sans-serif; font-size: 10px;
+            padding: 5px 12px; border-radius: 4px;
+            border: 1px solid var(--primary); color: var(--primary);
+            background: rgba(0, 242, 254, 0.05);
         }
-        .modal-content::-webkit-scrollbar { display: none; }
-        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; color: #666; cursor: pointer; transition: 0.2s; font-family: sans-serif; }
 
-        .modal-scoreboard { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 5px; }
-        .team-name-left { color: var(--primary); font-family: 'Orbitron'; font-size: 22px; font-weight: 700; text-transform: uppercase; }
-        .score-display { color: #00ff85; font-family: 'Orbitron'; font-size: 54px; font-weight: 900; letter-spacing: -1px; line-height: 1; }
-        .team-name-right { color: #fff; font-family: 'Orbitron'; font-size: 22px; font-weight: 700; text-transform: uppercase; }
-        .modal-map-name { text-align: center; color: #888888; font-family: 'Orbitron'; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 30px; }
+        /* --- ЗАГЛУШКА ДЛЯ ВАКАНТНОГО МЕСТА --- */
+        .player-item.vacant {
+            background: transparent;
+            border: 1px dashed rgba(0, 242, 254, 0.3);
+            animation: slotPulse 4s infinite ease-in-out;
+        }
+        .avatar-box.vacant-ico {
+            background: transparent;
+            border: 1px dashed rgba(0, 242, 254, 0.4);
+        }
+        .avatar-box.vacant-ico::before { content: "+"; color: var(--primary); font-size: 20px; opacity: 0.5; }
 
-        .team-bar { background: rgba(255, 255, 255, 0.03); padding: 12px 20px; font-family: 'Orbitron'; font-size: 11px; color: #fff; text-transform: uppercase; margin-bottom: 5px; font-weight: 700; }
-        .ego-bar { border-left: 3px solid var(--primary); }
-        .enemy-bar { border-left: 3px solid #555; }
+        .nickname.vacant-txt { color: rgba(255,255,255,0.3); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
 
-        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
-        .stats-table th { font-family: 'Orbitron'; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .stats-table td { font-family: 'Orbitron'; font-size: 14px; color: #fff; padding: 14px 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        @keyframes slotPulse {
+            0%, 100% { border-color: rgba(0, 242, 254, 0.2); }
+            50% { border-color: rgba(0, 242, 254, 0.5); }
+        }
 
-        .col-player { text-align: left !important; width: 40%; padding-left: 20px !important; }
-        .col-stat { width: 15%; }
-        .player-name { text-align: left !important; font-weight: 700; padding-left: 20px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        /* --- СТАТИСТИКА --- */
+        .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.3); }
+        .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid rgba(0, 242, 254, 0.1); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; }
+        .stat-card { text-align: center; padding: 10px; }
+        .stat-value { display: block; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 900; }
+        .stat-label { font-size: 9px; color: #666; text-transform: uppercase; }
 
-        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
+        .val-bad { color: var(--bad) !important; }
+        .val-okay { color: var(--okay) !important; }
+        .val-good { color: var(--good) !important; }
+
+        /* --- ВАКАНСИИ ВНИЗУ --- */
+        .vacancy-card {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05) 0%, rgba(0, 0, 0, 0.4) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .vacancy-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .vacancy-title { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-transform: uppercase; }
+        .vacancy-status { font-size: 10px; color: var(--primary); text-transform: uppercase; margin-top: 5px; }
+        .vacancy-action {
+            background: transparent; border: 1px solid var(--primary); color: var(--primary);
+            padding: 8px 18px; font-family: 'Orbitron', sans-serif; font-size: 10px;
+            border-radius: 4px; text-transform: uppercase;
+        }
+        .vacancy-card:hover .vacancy-action { background: var(--primary); color: #000; }
+
         @media (max-width: 600px) {
-            body { padding: 20px 10px; }
-            .logo-img { width: 130px; }
-            .page-title { font-size: 22px; letter-spacing: 3px; }
-            
-            .modal-content { padding: 25px 10px; border-radius: 12px; }
-            .modal-scoreboard { gap: 10px; margin-bottom: 0; }
-            .team-name-left, .team-name-right { font-size: 12px; }
-            .score-display { font-size: 32px; }
-            
-            .stats-table th { font-size: 8px; padding: 8px 2px; letter-spacing: 0; }
-            .stats-table td { font-size: 11px; padding: 10px 2px; }
-            
-            .col-player { width: 45%; padding-left: 8px !important; }
-            .player-name { padding-left: 8px !important; }
-            .col-stat { width: 13.75%; }
-            
-            .team-bar { padding: 8px 12px; font-size: 9px; }
-            
-            .match-row { padding: 15px; }
-            .match-teams { font-size: 13px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .vacancy-card { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -158,94 +199,154 @@
 
 <div class="container">
     <header class="header">
-        <a href="/" class="logo-link">
-            <img src="/logo1.png" class="logo-img" alt="Logo">
-        </a>
-        <h1 class="page-title">Match History</h1>
-        <a href="/" class="back-btn">← Back to Roster</a>
+        <a href="/"><img src="logo.PNG" class="logo-img"></a>
+        <h1 class="team-title">Team Ego</h1>
+        <a href="/history" class="match-history-btn">📊 Match History</a>
     </header>
 
-    <div class="section-label">LATEST MATCHES</div>
+    <div class="section-label">MAIN ROSTER</div>
 
-    <div class="match-row" onclick="openModal()">
-        <div class="match-main">
-            <div class="win-tag">WIN</div>
-            <div class="match-teams">
-                <span class="ego-highlight">TEAM EGO</span>
-                <span class="vs-text">vs</span>
-                <span>ENEMY TEAM</span>
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> -himeraa666
+                    <a href="https://www.faceit.com/ru/players/MrFlayz" target="_blank" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
+            </div>
+            <div class="role-badge">IGL / AWP</div>
+        </div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.26</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">87.9</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">45%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">60%</span><span class="stat-label">Wins</span></div>
+        </div></div>
+    </div>
+
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> angeldust
+                    <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
+            </div>
+            <div class="role-badge">RIFLE</div>
+        </div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+        </div></div>
+    </div>
+
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">
+                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> lanes
+                    <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
+            </div>
+            <div class="role-badge">SUPPORT</div>
+        </div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
+        </div></div>
+    </div>
+
+    <div class="player-item">
+        <div class="player-header" onclick="toggleStats(this)">
+            <div class="player-info">
+                <div class="avatar-box"><img src="avatar.PNG"></div>
+                <div class="nickname">
+                    <img src="https://flagcdn.com/w40/il.png" class="flag-img"> aimlord
+                    <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" onclick="event.stopPropagation()">
+                        <img src="faceit.png" class="faceit-ico">
+                    </a>
+                </div>
+            </div>
+            <div class="role-badge">LURKER</div>
+        </div>
+        <div class="stats-panel"><div class="stats-grid">
+            <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
+            <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
+        </div></div>
+    </div>
+
+    <a href="ССЫЛКА_ДЛЯ_5_ИГРОКА" target="_blank" style="text-decoration: none;">
+        <div class="player-item vacant">
+            <div class="player-header">
+                <div class="player-info">
+                    <div class="avatar-box vacant-ico"></div>
+                    <div class="nickname vacant-txt">Vacant Slot</div>
+                </div>
+                <div class="role-badge" style="opacity: 0.3; border-style: dashed;">TBD</div>
             </div>
         </div>
-        <div class="match-result">
-            <span class="score">13 : 10</span>
-            <span class="map-name">Ancient</span>
+    </a>
+
+    <div class="section-label">STRATEGIC COACH</div>
+    <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
+        <div class="vacancy-info">
+            <div class="vacancy-title">Analyzing tactical opportunities</div>
+            <div class="vacancy-status">Open for applications</div>
         </div>
-    </div>
-</div>
+        <div class="vacancy-action">Become Coach</div>
+    </a>
 
-<div class="modal-overlay" id="matchModal" onclick="closeModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="modal-close" onclick="closeModal(event)">×</span>
-        
-        <div class="modal-scoreboard">
-            <div class="team-name-left">TEAM EGO</div>
-            <div class="score-display">13 : 10</div>
-            <div class="team-name-right">ENEMY TEAM</div>
+    <div class="section-label">SUBSTITUTES</div>
+    <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
+        <div class="vacancy-info">
+            <div class="vacancy-title">Searching for talents</div>
+            <div class="vacancy-status">Recruitment active</div>
         </div>
-        <div class="modal-map-name">ANCIENT</div>
-
-        <div class="team-bar ego-bar">TEAM EGO</div>
-        <table class="stats-table">
-            <thead>
-                <tr>
-                    <th class="col-player">PLAYER</th>
-                    <th class="col-stat">K</th>
-                    <th class="col-stat">A</th>
-                    <th class="col-stat">D</th>
-                    <th class="col-stat">K/D</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td class="player-name">-himeraa666</td><td>22</td><td>7</td><td>14</td><td>1.57</td></tr>
-                <tr><td class="player-name">angeldust</td><td>20</td><td>12</td><td>15</td><td>1.33</td></tr>
-                <tr><td class="player-name">lanes</td><td>17</td><td>5</td><td>14</td><td>1.21</td></tr>
-                <tr><td class="player-name">aimlord</td><td>15</td><td>1</td><td>17</td><td>0.88</td></tr>
-                <tr><td class="player-name">Soon...</td><td>16</td><td>8</td><td>18</td><td>0.89</td></tr>
-            </tbody>
-        </table>
-
-        <div class="team-bar enemy-bar">ENEMY TEAM</div>
-        <table class="stats-table" style="margin-bottom: 0;">
-            <thead>
-                <tr>
-                    <th class="col-player">PLAYER</th>
-                    <th class="col-stat">K</th>
-                    <th class="col-stat">A</th>
-                    <th class="col-stat">D</th>
-                    <th class="col-stat">K/D</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td class="player-name">Enemy Player 1</td><td>18</td><td>4</td><td>18</td><td>1.00</td></tr>
-                <tr><td class="player-name">Enemy Player 2</td><td>15</td><td>3</td><td>19</td><td>0.79</td></tr>
-                <tr><td class="player-name">Enemy Player 3</td><td>14</td><td>5</td><td>20</td><td>0.70</td></tr>
-                <tr><td class="player-name">Enemy Player 4</td><td>12</td><td>2</td><td>21</td><td>0.57</td></tr>
-                <tr><td class="player-name">Enemy Player 5</td><td>10</td><td>6</td><td>22</td><td>0.45</td></tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="vacancy-action">Join the Team</div>
+    </a>
 </div>
 
 <script>
-    function openModal() {
-        document.getElementById('matchModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeModal(e) {
-        document.getElementById('matchModal').classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-</script>
+    function toggleStats(el) { el.parentElement.classList.toggle('active'); }
 
+    function runColorizer() {
+        const stats = document.querySelectorAll('.stat-value');
+        stats.forEach(el => {
+            const type = el.getAttribute('data-type');
+            if (!type) return;
+            const val = parseFloat(el.textContent.replace('%', ''));
+            el.classList.remove('val-bad', 'val-okay', 'val-good');
+            if (type === 'kdr') {
+                if (val < 1.0) el.classList.add('val-bad');
+                else if (val <= 1.2) el.classList.add('val-okay');
+                else el.classList.add('val-good');
+            } else if (type === 'adr') {
+                if (val < 75) el.classList.add('val-bad');
+                else if (val <= 85) el.classList.add('val-okay');
+                else el.classList.add('val-good');
+            } else if (type === 'hs' || type === 'winrate') {
+                if (val < 45) el.classList.add('val-bad');
+                else if (val <= 55) el.classList.add('val-okay');
+                else el.classList.add('val-good');
+            }
+        });
+    }
+    window.addEventListener('DOMContentLoaded', runColorizer);
+</script>
 </body>
 </html>
