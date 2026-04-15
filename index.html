@@ -100,7 +100,6 @@
             transition: 0.3s;
         }
         
-        /* Полоска статуса при наведении */
         .player-item::before {
             content: ""; position: absolute; left: 0; top: 0; bottom: 0;
             width: 3px; background: var(--primary); opacity: 0; transition: 0.3s;
@@ -135,7 +134,7 @@
             background: rgba(0, 242, 254, 0.05);
         }
 
-        /* --- ЗАГЛУШКА ДЛЯ ВАКАНТНОГО МЕСТА --- */
+        /* --- ВАКАНТНЫЙ СЛОТ --- */
         .player-item.vacant {
             background: transparent;
             border: 1px dashed rgba(0, 242, 254, 0.3);
@@ -166,32 +165,101 @@
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        /* --- ВАКАНСИИ ВНИЗУ --- */
+        /* --- ОБНОВЛЕННЫЕ КАРТОЧКИ ВАКАНСИЙ (ФОТО 2) --- */
         .vacancy-card {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05) 0%, rgba(0, 0, 0, 0.4) 100%);
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            border-radius: 10px;
-            padding: 25px;
+            background: rgba(0, 242, 254, 0.02);
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            border-radius: 12px;
+            padding: 20px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             margin-bottom: 15px;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .vacancy-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .vacancy-title { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-transform: uppercase; }
-        .vacancy-status { font-size: 10px; color: var(--primary); text-transform: uppercase; margin-top: 5px; }
+
+        /* Синяя полоска слева */
+        .vacancy-card::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            opacity: 0.5;
+        }
+
+        .vacancy-card:hover {
+            background: rgba(0, 242, 254, 0.06);
+            border-color: rgba(0, 242, 254, 0.4);
+            transform: translateX(5px);
+        }
+
+        .vacancy-title { 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 14px; 
+            color: #fff; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .vacancy-status { 
+            font-size: 10px; 
+            color: var(--primary); 
+            text-transform: uppercase; 
+            margin-top: 6px; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Точка индикатора */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--primary);
+            animation: dotBlink 2s infinite;
+        }
+
+        @keyframes dotBlink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
         .vacancy-action {
-            background: transparent; border: 1px solid var(--primary); color: var(--primary);
-            padding: 8px 18px; font-family: 'Orbitron', sans-serif; font-size: 10px;
-            border-radius: 4px; text-transform: uppercase;
+            background: transparent; 
+            border: 1px solid var(--primary); 
+            color: var(--primary);
+            padding: 10px 20px; 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 10px;
+            border-radius: 6px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            font-weight: 700;
         }
-        .vacancy-card:hover .vacancy-action { background: var(--primary); color: #000; }
+        
+        .vacancy-card:hover .vacancy-action { 
+            background: var(--primary); 
+            color: #000; 
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
 
         @media (max-width: 600px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .vacancy-card { flex-direction: column; gap: 15px; text-align: center; }
+            .vacancy-card { padding: 20px; }
+            .vacancy-title { font-size: 11px; }
+            .vacancy-action { padding: 8px 14px; font-size: 9px; }
         }
     </style>
 </head>
@@ -227,70 +295,7 @@
         </div></div>
     </div>
 
-    <div class="player-item">
-        <div class="player-header" onclick="toggleStats(this)">
-            <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">
-                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> angeldust
-                    <a href="https://www.faceit.com/ru/players/9livesofhell" target="_blank" onclick="event.stopPropagation()">
-                        <img src="faceit.png" class="faceit-ico">
-                    </a>
-                </div>
-            </div>
-            <div class="role-badge">RIFLE</div>
-        </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.17</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">89.4</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">46%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
-        </div></div>
-    </div>
-
-    <div class="player-item">
-        <div class="player-header" onclick="toggleStats(this)">
-            <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">
-                    <img src="https://flagcdn.com/w40/ua.png" class="flag-img"> lanes
-                    <a href="https://www.faceit.com/ru/players/lxnzs" target="_blank" onclick="event.stopPropagation()">
-                        <img src="faceit.png" class="faceit-ico">
-                    </a>
-                </div>
-            </div>
-            <div class="role-badge">SUPPORT</div>
-        </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">1.19</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">82.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">40%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">46%</span><span class="stat-label">Wins</span></div>
-        </div></div>
-    </div>
-
-    <div class="player-item">
-        <div class="player-header" onclick="toggleStats(this)">
-            <div class="player-info">
-                <div class="avatar-box"><img src="avatar.PNG"></div>
-                <div class="nickname">
-                    <img src="https://flagcdn.com/w40/il.png" class="flag-img"> aimlord
-                    <a href="https://www.faceit.com/ru/players/philipp83123" target="_blank" onclick="event.stopPropagation()">
-                        <img src="faceit.png" class="faceit-ico">
-                    </a>
-                </div>
-            </div>
-            <div class="role-badge">LURKER</div>
-        </div>
-        <div class="stats-panel"><div class="stats-grid">
-            <div class="stat-card"><span class="stat-value" data-type="kdr">0.86</span><span class="stat-label">K/D</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="adr">68.7</span><span class="stat-label">ADR</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="hs">60%</span><span class="stat-label">HS%</span></div>
-            <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
-        </div></div>
-    </div>
-
-    <a href="ССЫЛКА_ДЛЯ_5_ИГРОКА" target="_blank" style="text-decoration: none;">
+    <a href="#" style="text-decoration: none;">
         <div class="player-item vacant">
             <div class="player-header">
                 <div class="player-info">
@@ -306,7 +311,9 @@
     <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
         <div class="vacancy-info">
             <div class="vacancy-title">Analyzing tactical opportunities</div>
-            <div class="vacancy-status">Open for applications</div>
+            <div class="vacancy-status">
+                <span class="status-dot"></span> Open for applications
+            </div>
         </div>
         <div class="vacancy-action">Become Coach</div>
     </a>
@@ -315,7 +322,9 @@
     <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
         <div class="vacancy-info">
             <div class="vacancy-title">Searching for talents</div>
-            <div class="vacancy-status">Recruitment active</div>
+            <div class="vacancy-status">
+                <span class="status-dot"></span> Recruitment active
+            </div>
         </div>
         <div class="vacancy-action">Join the Team</div>
     </a>
