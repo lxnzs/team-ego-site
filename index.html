@@ -124,6 +124,39 @@
             border: 1px solid var(--primary); color: var(--primary);
         }
 
+        /* --- ЗАГЛУШКА ДЛЯ ВАКАНТНОГО МЕСТА (5-й слот) --- */
+        .player-item.vacant {
+            background: rgba(0, 242, 254, 0.01);
+            border: 2px dashed rgba(0, 242, 254, 0.15);
+            animation: slotPulse 4s infinite ease-in-out;
+        }
+        .player-item.vacant:hover {
+            border-color: var(--primary);
+            background: rgba(0, 242, 254, 0.05);
+            transform: translateY(-2px);
+        }
+        .avatar-box.vacant-ico {
+            background: transparent;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            position: relative;
+        }
+        .avatar-box.vacant-ico::before, .avatar-box.vacant-ico::after {
+            content: ""; position: absolute; background: rgba(0, 242, 254, 0.3); transition: 0.3s;
+        }
+        .avatar-box.vacant-ico::before { width: 40%; height: 1px; }
+        .avatar-box.vacant-ico::after { width: 1px; height: 40%; }
+
+        .player-item.vacant:hover .avatar-box.vacant-ico::before,
+        .player-item.vacant:hover .avatar-box.vacant-ico::after { background: var(--primary); box-shadow: 0 0 5px var(--primary); }
+
+        .nickname.vacant-txt { color: rgba(0, 242, 254, 0.4); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+        .player-item.vacant:hover .nickname.vacant-txt { color: #fff; }
+
+        @keyframes slotPulse {
+            0%, 100% { border-color: rgba(0, 242, 254, 0.15); }
+            50% { border-color: rgba(0, 242, 254, 0.4); }
+        }
+
         /* --- СТАТИСТИКА --- */
         .stats-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: rgba(0,0,0,0.2); }
         .player-item.active .stats-panel { max-height: 300px; border-top: 1px solid var(--border); }
@@ -136,7 +169,7 @@
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        /* --- КИБЕР-КАРТОЧКИ ВАКАНСИЙ (Coach/Sub) --- */
+        /* --- КАРТОЧКИ ВАКАНСИЙ (Coach/Sub) --- */
         .vacancy-card {
             position: relative;
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.05) 0%, rgba(0, 0, 0, 0.4) 100%);
@@ -151,83 +184,31 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-bottom: 15px;
         }
-
         .vacancy-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 2px;
+            content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 2px;
             background: linear-gradient(90deg, transparent, var(--primary), transparent);
             animation: scanLine 3s infinite linear;
         }
+        @keyframes scanLine { 0% { left: -100%; } 100% { left: 100%; } }
 
-        @keyframes scanLine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .vacancy-card:hover {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15) 0%, rgba(0, 0, 0, 0.6) 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 242, 254, 0.1);
-        }
-
-        .vacancy-info { display: flex; flex-direction: column; gap: 5px; }
-
-        .vacancy-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 13px;
-            color: #fff;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .vacancy-status {
-            font-size: 10px;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center; gap: 8px;
-        }
-
-        .vacancy-status::before {
-            content: ""; width: 6px; height: 6px;
-            background: var(--primary); border-radius: 50%;
-            box-shadow: 0 0 8px var(--primary);
-            animation: blink 1.5s infinite;
-        }
-
+        .vacancy-card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); }
+        .vacancy-title { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #fff; text-transform: uppercase; }
+        .vacancy-status { font-size: 10px; color: var(--primary); text-transform: uppercase; display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+        .vacancy-status::before { content: ""; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: blink 1.5s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .vacancy-action {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 8px 18px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            transition: 0.3s;
-            font-weight: 700;
+            background: transparent; border: 1px solid var(--primary); color: var(--primary);
+            padding: 8px 18px; font-family: 'Orbitron', sans-serif; font-size: 10px;
+            border-radius: 4px; text-transform: uppercase; font-weight: 700;
         }
-
-        .vacancy-card:hover .vacancy-action {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px var(--primary);
-        }
+        .vacancy-card:hover .vacancy-action { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary); }
 
         /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
         @media (max-width: 600px) {
             body { padding: 20px 15px; }
             .logo-img { width: 110px; }
-            .team-title { font-size: 26px; letter-spacing: 3px; }
-            .player-header { padding: 15px 15px; }
-            .nickname { font-size: 15px; } 
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .team-title { font-size: 26px; }
             .vacancy-card { padding: 18px; flex-direction: column; gap: 15px; align-items: flex-start; }
             .vacancy-action { width: 100%; text-align: center; }
         }
@@ -327,6 +308,18 @@
             <div class="stat-card"><span class="stat-value" data-type="winrate">43%</span><span class="stat-label">Wins</span></div>
         </div></div>
     </div>
+
+    <a href="ТВОЯ_ССЫЛКА_ДЛЯ_5_ИГРОКА" target="_blank" style="text-decoration: none; display: block; margin-bottom: 15px;">
+        <div class="player-item vacant">
+            <div class="player-header">
+                <div class="player-info">
+                    <div class="avatar-box vacant-ico"></div>
+                    <div class="nickname vacant-txt">Vacant Slot</div>
+                </div>
+                <div class="role-badge" style="opacity: 0.4; border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4);">TBD</div>
+            </div>
+        </div>
+    </a>
 
     <div class="section-label">STRATEGIC COACH</div>
     <a href="ССЫЛКА_ДЛЯ_ЗАЯВКИ" target="_blank" class="vacancy-card">
