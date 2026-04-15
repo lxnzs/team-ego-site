@@ -82,7 +82,6 @@
             box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
             transform: translateY(-2px);
         }
-        .match-history-btn:active { transform: scale(0.95); }
 
         /* --- СЕКЦИИ --- */
         .section-label {
@@ -142,22 +141,65 @@
         .val-okay { color: var(--okay) !important; }
         .val-good { color: var(--good) !important; }
 
-        /* --- ИНТЕРАКТИВНЫЕ КНОПКИ (Coach/Sub) --- */
-        .info-link { text-decoration: none; display: block; margin-bottom: 15px; }
+        /* --- НОВЫЕ ИНТЕРАКТИВНЫЕ КНОПКИ (Coach/Sub) --- */
+        .info-link { text-decoration: none; display: block; margin-bottom: 20px; }
+        
         .info-box {
-            text-align: center; padding: 35px;
-            border: 2px dashed var(--border); border-radius: 16px;
-            color: rgba(255,255,255,0.2); font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px; font-size: 12px;
-            transition: all 0.3s ease;
+            position: relative;
+            text-align: center; 
+            padding: 40px 20px;
+            border: 2px dashed var(--border); 
+            border-radius: 16px;
             background: rgba(255, 255, 255, 0.01);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: borderPulse 3s infinite ease-in-out;
         }
-        .info-link:hover .info-box {
+
+        .status-msg {
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .apply-btn-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
             color: var(--primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+        }
+
+        .info-link:hover .info-box {
             border: 2px solid var(--primary);
-            background: rgba(0, 242, 254, 0.05);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
-            transform: translateY(-3px);
+            background: rgba(0, 242, 254, 0.08);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .info-link:hover .status-msg {
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .info-link:hover .apply-btn-text {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        @keyframes borderPulse {
+            0% { border-color: rgba(255, 255, 255, 0.1); }
+            50% { border-color: rgba(0, 242, 254, 0.4); }
+            100% { border-color: rgba(255, 255, 255, 0.1); }
         }
 
         /* --- МОБИЛЬНАЯ АДАПТАЦИЯ --- */
@@ -175,6 +217,8 @@
             .role-badge { font-size: 8px; padding: 4px 8px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); padding: 12px; gap: 8px; }
             .stat-value { font-size: 16px; }
+            .info-box { padding: 30px 15px; }
+            .status-msg { font-size: 10px; }
         }
     </style>
 </head>
@@ -287,13 +331,19 @@
     </div>
 
     <div class="section-label">STRATEGIC COACH</div>
-    <a href="#" target="_blank" class="info-link">
-        <div class="info-box">ANALYZING TACTICAL OPPORTUNITIES...</div>
+    <a href="ТВОЯ_ССЫЛКА_ТУТ" target="_blank" class="info-link">
+        <div class="info-box">
+            <div class="status-msg">ANALYZING TACTICAL OPPORTUNITIES...</div>
+            <div class="apply-btn-text">[ ПОДАТЬ ЗАЯВКУ ]</div>
+        </div>
     </a>
 
     <div class="section-label">SUBSTITUTES</div>
-    <a href="#" target="_blank" class="info-link">
-        <div class="info-box">SEARCHING FOR TALENTS...</div>
+    <a href="ТВОЯ_ССЫЛКА_ТУТ" target="_blank" class="info-link">
+        <div class="info-box">
+            <div class="status-msg">SEARCHING FOR TALENTS...</div>
+            <div class="apply-btn-text">[ ВСТУПИТЬ В КОМАНДУ ]</div>
+        </div>
     </a>
 </div>
 
